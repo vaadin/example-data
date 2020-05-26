@@ -12,6 +12,7 @@ public class ExampleDataGeneratorTest {
         private Integer id;
         private String firstName, lastName, companyName, domain, accountNumber, occupation, tranasctionStatus, email,
                 profilePictureURL;
+        private int amountOfMoney;
 
         public Integer getId() {
             return id;
@@ -93,12 +94,20 @@ public class ExampleDataGeneratorTest {
             this.profilePictureURL = profilePictureURL;
         }
 
+        public int getAmountOfMoney() {
+            return amountOfMoney;
+        }
+
+        public void setAmountOfMoney(Integer amountOfMoney) {
+            this.amountOfMoney = amountOfMoney;
+        }
+
         @Override
         public String toString() {
-            return "AllDataTypes [accountNumber=" + accountNumber + ", companyName=" + companyName + ", domain="
-                    + domain + ", email=" + email + ", firstName=" + firstName + ", id=" + id + ", lastName=" + lastName
-                    + ", occupation=" + occupation + ", profilePictureURL=" + profilePictureURL + ", tranasctionStatus="
-                    + tranasctionStatus + "]";
+            return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
+                    + ", companyName=" + companyName + ", domain=" + domain + ", email=" + email + ", firstName="
+                    + firstName + ", id=" + id + ", lastName=" + lastName + ", occupation=" + occupation
+                    + ", profilePictureURL=" + profilePictureURL + ", tranasctionStatus=" + tranasctionStatus + "]";
         }
 
     }
@@ -116,6 +125,7 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setTranasctionStatus, DataType.TRANSACTION_STATUS);
         generator.setData(AllDataTypes::setEmail, DataType.EMAIL);
         generator.setData(AllDataTypes::setProfilePictureURL, DataType.PROFILE_PICTURE_URL);
+        generator.setData(AllDataTypes::setAmountOfMoney, DataType.AMOUNT_OF_MONEY);
 
         AllDataTypes allDataTypes = generator.create();
         LoggerFactory.getLogger(getClass()).info("Created entity {}", allDataTypes);
@@ -130,6 +140,7 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals("ahmed.morgan@canadian-speciality-group.com", allDataTypes.getEmail());
         Assert.assertEquals("https://images.unsplash.com/photo-1575779977884-f1069c45cbf4?w=300",
                 allDataTypes.getProfilePictureURL());
+        Assert.assertEquals(25726, allDataTypes.getAmountOfMoney());
 
     }
 
@@ -156,6 +167,7 @@ public class ExampleDataGeneratorTest {
             Assert.assertNotNull(allDataTypes.getCompanyName());
             Assert.assertNotNull(allDataTypes.getDomain());
             Assert.assertNotNull(allDataTypes.getTranasctionStatus());
+            Assert.assertNotNull(allDataTypes.getAmountOfMoney());
         }
     }
 }

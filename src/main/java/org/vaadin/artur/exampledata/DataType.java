@@ -14,6 +14,7 @@ public abstract class DataType<F> {
     public static final DataType<String> TRANSACTION_STATUS = new DataTypeWithRandomOptions("TransactionStatus.txt");
     public static final DataType<String> EMAIL = new EmailGenerator();
     public static final DataType<String> PROFILE_PICTURE_URL = new DataTypeWithRandomOptions("ProfilePictureURL.txt");
+    public static final DataType<Integer> AMOUNT_OF_MONEY = new IntegerProvider(1000, 100000);
 
     protected DataType() {
         //
