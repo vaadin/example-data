@@ -7,6 +7,7 @@ public abstract class DataType<F> {
     public static final DataType<Integer> ID = new IdDataType();
     public static final DataType<String> FIRST_NAME = new DataTypeWithRandomOptions("FirstName.txt");
     public static final DataType<String> LAST_NAME = new DataTypeWithRandomOptions("LastName.txt");
+    public static final DataType<String> FULL_NAME = new FullNameGenerator();
     public static final DataType<String> COMPANY_NAME = new DataTypeWithRandomOptions("CompanyName.txt");
     public static final DataType<String> DOMAIN = new DataTypeWithRandomOptions("Domain.txt");
     public static final DataType<String> IBAN = new DataTypeWithRandomOptions("IBAN.txt");
