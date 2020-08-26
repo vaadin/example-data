@@ -1,5 +1,6 @@
 package org.vaadin.artur.exampledata;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Assert;
@@ -11,8 +12,9 @@ public class ExampleDataGeneratorTest {
     public static class AllDataTypes {
         private Integer id;
         private String firstName, lastName, companyName, domain, accountNumber, occupation, tranasctionStatus, email,
-                profilePictureURL;
+                profilePictureURL, phoneNumber;
         private int amountOfMoney;
+        private LocalDate dateOfBirth;
 
         public Integer getId() {
             return id;
@@ -105,11 +107,26 @@ public class ExampleDataGeneratorTest {
         @Override
         public String toString() {
             return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
-                    + ", companyName=" + companyName + ", domain=" + domain + ", email=" + email + ", firstName="
-                    + firstName + ", id=" + id + ", lastName=" + lastName + ", occupation=" + occupation
+                    + ", companyName=" + companyName + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain + ", email=" + email + ", firstName="
+                    + firstName + ", id=" + id + ", lastName=" + lastName + ", occupation=" + occupation + ", phoneNumber=" + phoneNumber
                     + ", profilePictureURL=" + profilePictureURL + ", tranasctionStatus=" + tranasctionStatus + "]";
         }
 
+        public void setDateOfBirth(LocalDate dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
+        }
+
+        public LocalDate getDateOfBirth() {
+            return dateOfBirth;
+        }
+
+        public String getPhoneNumber() {
+            return phoneNumber;
+        }
+
+        public void setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+        }
     }
 
     @Test
@@ -126,6 +143,8 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setEmail, DataType.EMAIL);
         generator.setData(AllDataTypes::setProfilePictureURL, DataType.PROFILE_PICTURE_URL);
         generator.setData(AllDataTypes::setAmountOfMoney, DataType.AMOUNT_OF_MONEY);
+        generator.setData(AllDataTypes::setDateOfBirth, DataType.DATE_OF_BIRTH);
+        generator.setData(AllDataTypes::setPhoneNumber, DataType.PHONE_NUMBER);
 
         AllDataTypes allDataTypes = generator.create();
         LoggerFactory.getLogger(getClass()).info("Created entity {}", allDataTypes);
@@ -141,7 +160,8 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals("https://images.unsplash.com/photo-1575779977884-f1069c45cbf4?w=300",
                 allDataTypes.getProfilePictureURL());
         Assert.assertEquals(25726, allDataTypes.getAmountOfMoney());
-
+        Assert.assertEquals(LocalDate.of(1994, 10, 23), allDataTypes.getDateOfBirth());
+        Assert.assertEquals("+972 0426881", allDataTypes.getPhoneNumber());
     }
 
     @Test
@@ -155,6 +175,11 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setCompanyName, DataType.COMPANY_NAME);
         generator.setData(AllDataTypes::setDomain, DataType.DOMAIN);
         generator.setData(AllDataTypes::setTranasctionStatus, DataType.TRANSACTION_STATUS);
+        generator.setData(AllDataTypes::setEmail, DataType.EMAIL);
+        generator.setData(AllDataTypes::setProfilePictureURL, DataType.PROFILE_PICTURE_URL);
+        generator.setData(AllDataTypes::setAmountOfMoney, DataType.AMOUNT_OF_MONEY);
+        generator.setData(AllDataTypes::setDateOfBirth, DataType.DATE_OF_BIRTH);
+        generator.setData(AllDataTypes::setPhoneNumber, DataType.PHONE_NUMBER);
         List<AllDataTypes> entities = generator.create(10);
 
         Assert.assertEquals(10, entities.size());
@@ -167,7 +192,11 @@ public class ExampleDataGeneratorTest {
             Assert.assertNotNull(allDataTypes.getCompanyName());
             Assert.assertNotNull(allDataTypes.getDomain());
             Assert.assertNotNull(allDataTypes.getTranasctionStatus());
-            Assert.assertNotNull(allDataTypes.getAmountOfMoney());
+            Assert.assertNotNull(allDataTypes.getEmail());
+            Assert.assertNotNull(allDataTypes.getProfilePictureURL());
+            Assert.assertTrue(allDataTypes.getAmountOfMoney() > 0);
+            Assert.assertNotNull(allDataTypes.getDateOfBirth());
+            Assert.assertNotNull(allDataTypes.getPhoneNumber());
         }
     }
 }
