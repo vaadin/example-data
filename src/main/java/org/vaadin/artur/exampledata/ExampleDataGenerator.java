@@ -27,6 +27,7 @@ public class ExampleDataGenerator<T> {
         random.setSeed(seed);
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public T create() {
         try {
             T bean = type.newInstance();

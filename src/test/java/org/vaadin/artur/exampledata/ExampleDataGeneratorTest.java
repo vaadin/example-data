@@ -11,8 +11,8 @@ public class ExampleDataGeneratorTest {
 
     public static class AllDataTypes {
         private Integer id;
-        private String firstName, lastName, companyName, domain, accountNumber, occupation, tranasctionStatus, email,
-                profilePictureURL, phoneNumber;
+        private String firstName, lastName, fullName, companyName, domain, accountNumber, occupation, tranasctionStatus,
+                email, profilePictureURL, phoneNumber;
         private int amountOfMoney;
         private LocalDate dateOfBirth;
 
@@ -38,6 +38,14 @@ public class ExampleDataGeneratorTest {
 
         public void setLastName(String lastName) {
             this.lastName = lastName;
+        }
+
+        public String getFullName() {
+            return fullName;
+        }
+
+        public void setFullName(String fullName) {
+            this.fullName = fullName;
         }
 
         public String getCompanyName() {
@@ -107,9 +115,10 @@ public class ExampleDataGeneratorTest {
         @Override
         public String toString() {
             return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
-                    + ", companyName=" + companyName + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain + ", email=" + email + ", firstName="
-                    + firstName + ", id=" + id + ", lastName=" + lastName + ", occupation=" + occupation + ", phoneNumber=" + phoneNumber
-                    + ", profilePictureURL=" + profilePictureURL + ", tranasctionStatus=" + tranasctionStatus + "]";
+                    + ", companyName=" + companyName + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain
+                    + ", email=" + email + ", firstName=" + firstName + ", id=" + id + ", lastName=" + lastName
+                    + ", occupation=" + occupation + ", phoneNumber=" + phoneNumber + ", profilePictureURL="
+                    + profilePictureURL + ", tranasctionStatus=" + tranasctionStatus + "]";
         }
 
         public void setDateOfBirth(LocalDate dateOfBirth) {
@@ -145,6 +154,7 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setAmountOfMoney, DataType.AMOUNT_OF_MONEY);
         generator.setData(AllDataTypes::setDateOfBirth, DataType.DATE_OF_BIRTH);
         generator.setData(AllDataTypes::setPhoneNumber, DataType.PHONE_NUMBER);
+        generator.setData(AllDataTypes::setFullName, DataType.FULL_NAME);
 
         AllDataTypes allDataTypes = generator.create();
         LoggerFactory.getLogger(getClass()).info("Created entity {}", allDataTypes);
@@ -162,6 +172,7 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals(25726, allDataTypes.getAmountOfMoney());
         Assert.assertEquals(LocalDate.of(1994, 10, 23), allDataTypes.getDateOfBirth());
         Assert.assertEquals("+972 0426881", allDataTypes.getPhoneNumber());
+        Assert.assertEquals("Pippa Li", allDataTypes.getFullName());
     }
 
     @Test
@@ -170,6 +181,7 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setId, DataType.ID);
         generator.setData(AllDataTypes::setFirstName, DataType.FIRST_NAME);
         generator.setData(AllDataTypes::setLastName, DataType.LAST_NAME);
+        generator.setData(AllDataTypes::setFullName, DataType.FULL_NAME);
         generator.setData(AllDataTypes::setOccupation, DataType.OCCUPATION);
         generator.setData(AllDataTypes::setAccountNumber, DataType.IBAN);
         generator.setData(AllDataTypes::setCompanyName, DataType.COMPANY_NAME);
@@ -187,6 +199,7 @@ public class ExampleDataGeneratorTest {
             Assert.assertNotNull(allDataTypes.getId());
             Assert.assertNotNull(allDataTypes.getFirstName());
             Assert.assertNotNull(allDataTypes.getLastName());
+            Assert.assertNotNull(allDataTypes.getFullName());
             Assert.assertNotNull(allDataTypes.getOccupation());
             Assert.assertNotNull(allDataTypes.getAccountNumber());
             Assert.assertNotNull(allDataTypes.getCompanyName());
