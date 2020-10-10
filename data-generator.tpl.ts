@@ -15,6 +15,8 @@ export enum DataType {
   TransactionStatus = 'TRANSACTION_STATUS',
   ProfilePictureURL = 'PROFILE_PICTURE_URL',
   AmountOfMoney = 'AMOUNT_OF_MONEY',
+  DateOfBirth = 'DATE_OF_BIRTH',
+  PhoneNumber = 'PHONE_NUMBER'
 }
 
 export interface ValueCreator {
@@ -51,6 +53,31 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.FirstName]: {
     createValue: () => {
       return chance.first();
+    }
+  },
+  [DataType.LastName]: {
+    createValue: () => {
+      return chance.last();
+    }
+  },
+  [DataType.CompanyName]: {
+    createValue: () => {
+      return chance.company();
+    }
+  },
+  [DataType.Domain]: {
+    createValue: () => {
+      return chance.domain();
+    }
+  },
+  [DataType.DateOfBirth]: {
+    createValue: () => {
+      return chance.birthday().toISOString().split("T")[0];
+    }
+  },
+  [DataType.PhoneNumber]: {
+    createValue: () => {
+      return chance.phone();
     }
   },
   /* Generator: randomOptionGenerators */
