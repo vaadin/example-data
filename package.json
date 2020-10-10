@@ -1,0 +1,30 @@
+{
+  "name": "example-data",
+  "version": "1.0.0",
+  "description": "To build the package, run ```",
+  "main": "index.js",
+  "dependencies": {
+    "chance": "^1.1.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaadin/example-data.git"
+  },
+  "keywords": [
+    "example",
+    "data",
+    "generator"
+  ],
+  "author": "Artur Signell",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/vaadin/example-data/issues"
+  },
+  "homepage": "https://github.com/vaadin/example-data#readme",
+  "devDependencies": {
+    "prettier": "^2.1.2"
+  }
+}

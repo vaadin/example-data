@@ -1,3 +1,4 @@
+const chance = require('chance').Chance();
 const options: any = {};
 /* Generator: randomOptions */
 
@@ -46,6 +47,11 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
       const max = 100000;
       return Math.random() * (max - min) + min;
     },
+  },
+  [DataType.FirstName]: {
+    createValue: () => {
+      return chance.first();
+    }
   },
   /* Generator: randomOptionGenerators */
 };

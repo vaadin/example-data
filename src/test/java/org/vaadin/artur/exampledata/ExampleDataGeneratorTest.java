@@ -159,20 +159,20 @@ public class ExampleDataGeneratorTest {
         AllDataTypes allDataTypes = generator.create();
         LoggerFactory.getLogger(getClass()).info("Created entity {}", allDataTypes);
         Assert.assertEquals(1, allDataTypes.getId().intValue());
-        Assert.assertEquals("Edward", allDataTypes.getFirstName());
+        Assert.assertEquals("Roy", allDataTypes.getFirstName());
         Assert.assertEquals("Duran", allDataTypes.getLastName());
         Assert.assertEquals("Health Insurance Adjuster", allDataTypes.getOccupation());
         Assert.assertEquals("LT12 1000 0111 0100 1000", allDataTypes.getAccountNumber());
         Assert.assertEquals("Ball Industries", allDataTypes.getCompanyName());
         Assert.assertEquals("ball-industries.edu", allDataTypes.getDomain());
         Assert.assertEquals("Confirmed", allDataTypes.getTranasctionStatus());
-        Assert.assertEquals("ahmed.morgan@canadian-speciality-group.com", allDataTypes.getEmail());
+        Assert.assertEquals("maurice.morgan@canadian-speciality-group.com", allDataTypes.getEmail());
         Assert.assertEquals("https://images.unsplash.com/photo-1575779977884-f1069c45cbf4?w=300",
                 allDataTypes.getProfilePictureURL());
         Assert.assertEquals(25726, allDataTypes.getAmountOfMoney());
         Assert.assertEquals(LocalDate.of(1994, 10, 23), allDataTypes.getDateOfBirth());
         Assert.assertEquals("+972 0426881", allDataTypes.getPhoneNumber());
-        Assert.assertEquals("Pippa Li", allDataTypes.getFullName());
+        Assert.assertEquals("Dustin Li", allDataTypes.getFullName());
     }
 
     @Test
