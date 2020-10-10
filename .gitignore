@@ -4,4 +4,3 @@ target/
 # IntelliJ IDEA
 .idea/
 *.iml
-src/main/resources/META-INF/resources/frontend/data-generator.ts
