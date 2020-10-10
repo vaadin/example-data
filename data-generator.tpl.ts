@@ -16,7 +16,12 @@ export enum DataType {
   ProfilePictureURL = 'PROFILE_PICTURE_URL',
   AmountOfMoney = 'AMOUNT_OF_MONEY',
   DateOfBirth = 'DATE_OF_BIRTH',
-  PhoneNumber = 'PHONE_NUMBER'
+  PhoneNumber = 'PHONE_NUMBER',
+  City = 'CITY',
+  State = 'STATE',
+  Country = 'COUNTRY',
+  ZipCode = 'ZIP_CODE',
+  Address = 'ADDRESS',
 }
 
 export interface ValueCreator {
@@ -78,6 +83,31 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.PhoneNumber]: {
     createValue: () => {
       return chance.phone();
+    }
+  },
+  [DataType.City]: {
+    createValue: () => {
+      return chance.city();
+    }
+  },
+  [DataType.State]: {
+    createValue: () => {
+      return chance.state();
+    }
+  },
+  [DataType.Country]: {
+    createValue: () => {
+      return chance.country();
+    }
+  },
+  [DataType.ZipCode]: {
+    createValue: () => {
+      return chance.zip();
+    }
+  },
+  [DataType.Address]: {
+    createValue: () => {
+      return chance.address();
     }
   },
   /* Generator: randomOptionGenerators */
