@@ -2,11 +2,14 @@ package org.vaadin.artur.exampledata;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.slf4j.LoggerFactory;
 
 public class ChanceInterface {
 
+    private static final DateTimeFormatter OUTPUT_DATE_PATTERN = DateTimeFormatter.ofPattern("M/d/y");
     private static NodeUtil node = new NodeUtil();
 
     private static void init() throws InterruptedException, IOException {
@@ -39,6 +42,17 @@ public class ChanceInterface {
         } catch (InterruptedException | IOException e) {
             LoggerFactory.getLogger(ChanceInterface.class).error("Unable to generate value of type '" + type + "'", e);
             return "Error";
+        }
+    }
+
+    public static LocalDate getLocalDate(int seed, String type) {
+        try {
+            init();
+            String result = node.runScript("c.Chance(" + seed + ")." + type + "({string: true})");
+            return LocalDate.parse(result.substring(1, result.length() - 1), OUTPUT_DATE_PATTERN);
+        } catch (InterruptedException | IOException e) {
+            LoggerFactory.getLogger(ChanceInterface.class).error("Unable to generate value of type '" + type + "'", e);
+            return LocalDate.now();
         }
     }
 
