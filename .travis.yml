@@ -1,0 +1,25 @@
+sudo: required
+language: java
+jdk: openjdk8
+dist: xenial
+
+cache:
+  directories:
+    - $HOME/.m2/
+    - $HOME/.npm/
+
+branches:
+  only:
+    - master
+    - "2.0"
+
+before_install:
+  - cp settings.xml ~/.m2/
+  - nvm install 12
+
+install:
+  - npm install
+  - node createFrontend.js
+
+script: 
+  - mvn package -Pdirectory
