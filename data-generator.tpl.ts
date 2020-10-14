@@ -25,95 +25,105 @@ export enum DataType {
 }
 
 export interface ValueCreator {
-  createValue(): any;
+  createValue(seed: number): any;
 }
 
-const random = (array: string[]) => {
-  const idx = Math.random() * array.length;
-  return array[Math.floor(idx)];
+const random = (array: string[], seed: number) => {
+  setSeed(seed);
+  return array[chance.integer({ min: 0, max: array.length - 1 })];
 };
 
 let idSequence = 1;
 let chance = chanceImport.Chance(123);
-export const setSeed = (seed: number) => {
+const setSeed = (seed: number) => {
   chance = chanceImport.Chance(seed);
 };
 
 export const DataGenerators: { [key in string]: ValueCreator } = {
-  [DataType.ID]: { createValue: () => idSequence++ },
+  [DataType.ID]: { createValue: (_seed) => idSequence++ },
   [DataType.FullName]: {
-    createValue: () =>
-      DataGenerators[DataType.FirstName].createValue() + ' ' + DataGenerators[DataType.LastName].createValue(),
+    createValue: (seed) =>
+      DataGenerators[DataType.FirstName].createValue(seed) + ' ' + DataGenerators[DataType.LastName].createValue(seed),
   },
   [DataType.Email]: {
-    createValue: () =>
-      DataGenerators[DataType.FirstName].createValue().toLowerCase() +
+    createValue: (seed) =>
+      DataGenerators[DataType.FirstName].createValue(seed).toLowerCase() +
       '.' +
-      DataGenerators[DataType.LastName].createValue().toLowerCase() +
+      DataGenerators[DataType.LastName].createValue(seed).toLowerCase() +
       '@' +
-      DataGenerators[DataType.Domain].createValue(),
+      DataGenerators[DataType.Domain].createValue(seed),
   },
   [DataType.AmountOfMoney]: {
-    createValue: () => {
-      const min = 1000;
-      const max = 100000;
-      return Math.random() * (max - min) + min;
+    createValue: (seed) => {
+      setSeed(seed);
+      return chance.floating({ min: 1000, max: 100000 });
     },
   },
   [DataType.FirstName]: {
-    createValue: () => {
+    createValue: (seed) => {
+      setSeed(seed);
       return chance.first();
-    }
+    },
   },
   [DataType.LastName]: {
-    createValue: () => {
+    createValue: (seed) => {
+      setSeed(seed);
       return chance.last();
-    }
+    },
   },
   [DataType.CompanyName]: {
-    createValue: () => {
+    createValue: (seed) => {
+      setSeed(seed);
       return chance.company();
-    }
+    },
   },
   [DataType.Domain]: {
-    createValue: () => {
+    createValue: (seed) => {
+      setSeed(seed);
       return chance.domain();
-    }
+    },
   },
   [DataType.DateOfBirth]: {
-    createValue: () => {
-      return chance.birthday().toISOString().split("T")[0];
-    }
+    createValue: (seed) => {
+      setSeed(seed);
+      return chance.birthday().toISOString().split('T')[0];
+    },
   },
   [DataType.PhoneNumber]: {
-    createValue: () => {
+    createValue: (seed) => {
+      setSeed(seed);
       return chance.phone();
-    }
+    },
   },
   [DataType.City]: {
-    createValue: () => {
+    createValue: (seed) => {
+      setSeed(seed);
       return chance.city();
-    }
+    },
   },
   [DataType.State]: {
-    createValue: () => {
+    createValue: (seed) => {
+      setSeed(seed);
       return chance.state();
-    }
+    },
   },
   [DataType.Country]: {
-    createValue: () => {
+    createValue: (seed) => {
+      setSeed(seed);
       return chance.country();
-    }
+    },
   },
   [DataType.ZipCode]: {
-    createValue: () => {
+    createValue: (seed) => {
+      setSeed(seed);
       return chance.zip();
-    }
+    },
   },
   [DataType.Address]: {
-    createValue: () => {
+    createValue: (seed) => {
+      setSeed(seed);
       return chance.address();
-    }
+    },
   },
   /* Generator: randomOptionGenerators */
 };

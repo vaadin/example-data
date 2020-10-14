@@ -6,7 +6,7 @@ public class IdDataType extends DataType<Integer> {
     private int sequence = 1;
 
     @Override
-    public Integer getValue(Random random) {
+    public Integer getValue(Random random, int seed) {
         return sequence++;
     }
 

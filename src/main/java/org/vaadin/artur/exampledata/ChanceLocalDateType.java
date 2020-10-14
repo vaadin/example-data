@@ -12,7 +12,8 @@ public class ChanceLocalDateType extends DataType<LocalDate> {
     }
 
     @Override
-    public LocalDate getValue(Random random) {
+    public LocalDate getValue(Random random, int seed) {
+        random.setSeed(seed);
         return ChanceInterface.getLocalDate(random.nextInt(), this.type);
     }
 

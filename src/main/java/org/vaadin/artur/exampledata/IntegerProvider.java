@@ -13,7 +13,8 @@ public class IntegerProvider extends DataType<Integer> {
     }
 
     @Override
-    public Integer getValue(Random random) {
+    public Integer getValue(Random random, int seed) {
+        random.setSeed(seed);
         return random.nextInt(max - min) + min;
     }
 

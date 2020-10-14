@@ -11,8 +11,8 @@ public class ChanceStringType extends DataType<String> {
     }
 
     @Override
-    public String getValue(Random random) {
-        return ChanceInterface.getString(random.nextInt(), this.type);
+    public String getValue(Random random, int seed) {
+        return ChanceInterface.getString(seed, this.type);
     }
 
 }
