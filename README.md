@@ -2,7 +2,7 @@
 
 To build the package, run
 ```
-pnpm install
+npm install
 node createFrontend.js
-mvn install -Pdirectory
+mvn clean install -Pdirectory
 ```
