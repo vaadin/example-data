@@ -6,8 +6,8 @@ import java.util.Random;
 public class FullNameGenerator extends DataType<String> {
 
     @Override
-    public String getValue(Random random) {
-        return DataType.FIRST_NAME.getValue(random) + " " + DataType.LAST_NAME.getValue(random);
+    public String getValue(Random random, int seed) {
+        return DataType.FIRST_NAME.getValue(random, seed) + " " + DataType.LAST_NAME.getValue(random, seed);
     }
 
 }

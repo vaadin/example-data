@@ -11,13 +11,13 @@ let generatorRandomOptionGenerators = '';
 fs.readdirSync(inputFilePath).forEach((file) => {
   const optionName = file.replace('.txt', '');
   const options = fs.readFileSync(inputFilePath + '/' + file, { encoding: 'UTF-8' });
-  const optionsArray = JSON.stringify(options.split('\n').filter(value => value.trim().length > 0));
+  const optionsArray = JSON.stringify(options.split('\n').filter((value) => value.trim().length > 0));
 
   // options.FirstName = [...];
   generatorRandomOptions += `options.${optionName} = ${optionsArray};\n\n`;
 
   // [DataType.CompanyName]: { createValue: () => random(options.companyName) },
-  generatorRandomOptionGenerators += `  [DataType.${optionName}]: { createValue: () => random(options.${optionName})},\n`;
+  generatorRandomOptionGenerators += `  [DataType.${optionName}]: { createValue: (seed) => random(options.${optionName}, seed)},\n`;
 });
 
 let contents = fs.readFileSync(template, { encoding: 'UTF-8' });

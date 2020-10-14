@@ -29,6 +29,6 @@ public abstract class DataType<F> {
         //
     }
 
-    public abstract F getValue(Random random);
+    public abstract F getValue(Random random, int seed);
 
 }

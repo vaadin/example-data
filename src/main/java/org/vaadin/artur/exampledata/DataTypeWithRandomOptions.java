@@ -28,7 +28,8 @@ public class DataTypeWithRandomOptions extends DataType<String> {
         }
     }
 
-    public String getValue(Random random) {
+    public String getValue(Random random, int seed) {
+        random.setSeed(seed);
         return options[random.nextInt(options.length)];
     }
 
