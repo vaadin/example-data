@@ -1,4 +1,4 @@
-const chance = require('chance').Chance();
+const chanceImport = require('chance');
 const options: any = {};
 /* Generator: randomOptions */
 
@@ -34,6 +34,11 @@ const random = (array: string[]) => {
 };
 
 let idSequence = 1;
+let chance = chanceImport.Chance(123);
+export const setSeed = (seed: number) => {
+  chance = chanceImport.Chance(seed);
+};
+
 export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.ID]: { createValue: () => idSequence++ },
   [DataType.FullName]: {
