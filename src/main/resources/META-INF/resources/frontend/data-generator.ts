@@ -460,13 +460,13 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.State]: {
     createValue: (seed) => {
       setSeed(seed);
-      return chance.state();
+      return chance.state({ full: true });
     },
   },
   [DataType.Country]: {
     createValue: (seed) => {
       setSeed(seed);
-      return chance.country();
+      return chance.country({ full: true });
     },
   },
   [DataType.ZipCode]: {

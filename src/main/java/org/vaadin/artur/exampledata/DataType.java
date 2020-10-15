@@ -17,11 +17,11 @@ public abstract class DataType<F> {
     public static final DataType<String> EMAIL = new EmailGenerator();
     public static final DataType<String> PROFILE_PICTURE_URL = new DataTypeWithRandomOptions("ProfilePictureURL.txt");
     public static final DataType<Integer> AMOUNT_OF_MONEY = new IntegerProvider(1000, 100000);
-    public static final DataType<LocalDate> DATE_OF_BIRTH = new ChanceLocalDateType("birthday");
+    public static final DataType<LocalDate> DATE_OF_BIRTH = new ChanceLocalDateType("birthday", "{string: true}");
     public static final DataType<String> PHONE_NUMBER = new ChanceStringType("phone");
     public static final DataType<String> CITY = new ChanceStringType("city");
-    public static final DataType<String> STATE = new ChanceStringType("state");
-    public static final DataType<String> COUNTRY = new ChanceStringType("country");
+    public static final DataType<String> STATE = new ChanceStringType("state", "{ full: true }");
+    public static final DataType<String> COUNTRY = new ChanceStringType("country", "{ full: true }");
     public static final DataType<String> ZIP_CODE = new ChanceStringType("zip");
     public static final DataType<String> ADDRESS = new ChanceStringType("address");
 

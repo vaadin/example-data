@@ -34,10 +34,10 @@ public class ChanceInterface {
         }
     }
 
-    public static String getString(int seed, String type) {
+    public static String getString(int seed, String type, String options) {
         try {
             init();
-            String result = node.runScript("c.Chance(" + seed + ")." + type + "()");
+            String result = node.runScript("c.Chance(" + seed + ")." + type + "(" + options + ")");
             return result.substring(1, result.length() - 1);
         } catch (InterruptedException | IOException e) {
             LoggerFactory.getLogger(ChanceInterface.class).error("Unable to generate value of type '" + type + "'", e);
@@ -45,10 +45,10 @@ public class ChanceInterface {
         }
     }
 
-    public static LocalDate getLocalDate(int seed, String type) {
+    public static LocalDate getLocalDate(int seed, String type, String options) {
         try {
             init();
-            String result = node.runScript("c.Chance(" + seed + ")." + type + "({string: true})");
+            String result = node.runScript("c.Chance(" + seed + ")." + type + "(" + options + ")");
             return LocalDate.parse(result.substring(1, result.length() - 1), OUTPUT_DATE_PATTERN);
         } catch (InterruptedException | IOException e) {
             LoggerFactory.getLogger(ChanceInterface.class).error("Unable to generate value of type '" + type + "'", e);
