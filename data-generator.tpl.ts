@@ -25,6 +25,7 @@ export enum DataType {
   BookTitle = 'BOOK_TITLE',
   BookTitlePrefix = 'BOOK_TITLE_PREFIX',
   BookTitleSuffix = 'BOOK_TITLE_SUFFIX',
+  BookGenre = 'BOOK_GENRE',
 }
 
 export interface ValueCreator {

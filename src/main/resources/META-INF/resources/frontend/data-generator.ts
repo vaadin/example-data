@@ -1,11 +1,29 @@
 const chanceImport = require('chance');
 const options: any = {};
+options.BookGenre = [
+  "Children's books",
+  'Best sellers',
+  'Romance',
+  'Mystery',
+  'Thriller',
+  'Sci-fi',
+  'Non-fiction',
+  'Cookbooks',
+  'Dystopian',
+  'Horror',
+  'Health',
+  'History',
+  'Travel',
+  'Guide / How-to',
+  'Humor',
+];
+
 options.BookTitlePrefix = [
   'The art of',
   'Mastering',
   'The secrets of',
   'Avoiding',
-  'For fun and profit: ',
+  'For fun and profit:',
   'How to fail at',
   '10 important facts about',
   'The ultimate guide to',
@@ -20,7 +38,7 @@ options.BookTitlePrefix = [
   'Becoming one with',
   'Beginners guide to',
   'The complete visual guide to',
-  'The mother of all references: ',
+  'The mother of all references:',
 ];
 
 options.BookTitleSuffix = [
@@ -428,6 +446,7 @@ export enum DataType {
   BookTitle = 'BOOK_TITLE',
   BookTitlePrefix = 'BOOK_TITLE_PREFIX',
   BookTitleSuffix = 'BOOK_TITLE_SUFFIX',
+  BookGenre = 'BOOK_GENRE',
 }
 
 export interface ValueCreator {
@@ -537,6 +556,7 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
       return chance.address();
     },
   },
+  [DataType.BookGenre]: { createValue: (seed) => random(options.BookGenre, seed) },
   [DataType.BookTitlePrefix]: { createValue: (seed) => random(options.BookTitlePrefix, seed) },
   [DataType.BookTitleSuffix]: { createValue: (seed) => random(options.BookTitleSuffix, seed) },
   [DataType.IBAN]: { createValue: (seed) => random(options.IBAN, seed) },

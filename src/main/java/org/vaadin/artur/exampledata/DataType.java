@@ -27,6 +27,7 @@ public abstract class DataType<F> {
     public static final DataType<String> BOOK_TITLE_PREFIX = new DataTypeWithRandomOptions("BookTitlePrefix.txt");
     public static final DataType<String> BOOK_TITLE_SUFFIX = new DataTypeWithRandomOptions("BookTitleSuffix.txt");
     public static final DataType<String> BOOK_TITLE = new CombinedStringGenerator(BOOK_TITLE_PREFIX, BOOK_TITLE_SUFFIX);
+    public static final DataType<String> BOOK_GENRE = new DataTypeWithRandomOptions("BookGenre.txt");
 
     protected DataType() {
         //
