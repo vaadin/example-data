@@ -8,7 +8,7 @@ public abstract class DataType<F> {
     public static final DataType<Integer> ID = new IdDataType();
     public static final DataType<String> FIRST_NAME = new ChanceStringType("first");
     public static final DataType<String> LAST_NAME = new ChanceStringType("last");
-    public static final DataType<String> FULL_NAME = new FullNameGenerator();
+    public static final DataType<String> FULL_NAME = new CombinedStringGenerator(FIRST_NAME, LAST_NAME);
     public static final DataType<String> COMPANY_NAME = new ChanceStringType("company");
     public static final DataType<String> DOMAIN = new ChanceStringType("domain");
     public static final DataType<String> IBAN = new DataTypeWithRandomOptions("IBAN.txt");
@@ -24,6 +24,9 @@ public abstract class DataType<F> {
     public static final DataType<String> COUNTRY = new ChanceStringType("country", "{ full: true }");
     public static final DataType<String> ZIP_CODE = new ChanceStringType("zip");
     public static final DataType<String> ADDRESS = new ChanceStringType("address");
+    public static final DataType<String> BOOK_TITLE_PREFIX = new DataTypeWithRandomOptions("BookTitlePrefix.txt");
+    public static final DataType<String> BOOK_TITLE_SUFFIX = new DataTypeWithRandomOptions("BookTitleSuffix.txt");
+    public static final DataType<String> BOOK_TITLE = new CombinedStringGenerator(BOOK_TITLE_PREFIX, BOOK_TITLE_SUFFIX);
 
     protected DataType() {
         //

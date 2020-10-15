@@ -1,5 +1,52 @@
 const chanceImport = require('chance');
 const options: any = {};
+options.BookTitlePrefix = [
+  'The art of',
+  'Mastering',
+  'The secrets of',
+  'Avoiding',
+  'For fun and profit: ',
+  'How to fail at',
+  '10 important facts about',
+  'The ultimate guide to',
+  'Book of',
+  'Surviving',
+  'Encyclopedia of',
+  'Very much',
+  'Learning the basics of',
+  'The cheap way to',
+  'Being awesome at',
+  'The life changer:',
+  'Becoming one with',
+  'Beginners guide to',
+  'The complete visual guide to',
+  'The mother of all references: ',
+];
+
+options.BookTitleSuffix = [
+  'gardening',
+  'living a healthy life',
+  'designing tree houses',
+  'home security',
+  'intergalaxy travel',
+  'meditation',
+  'ice hockey',
+  "children's education",
+  'computer programming',
+  'winter bathing',
+  'playing the cello',
+  'dummies',
+  'rubber bands',
+  'feeling down',
+  'debugging',
+  'running barefoot',
+  'speaking to a big audience',
+  'creating software',
+  'giant needles',
+  'elephants',
+  'keeping your wife happy',
+];
+
 options.IBAN = [
   'AD12 0001 2030 2003 5910 0100',
   'AE07 0331 2345 6789 0123 456',
@@ -378,6 +425,9 @@ export enum DataType {
   Country = 'COUNTRY',
   ZipCode = 'ZIP_CODE',
   Address = 'ADDRESS',
+  BookTitle = 'BOOK_TITLE',
+  BookTitlePrefix = 'BOOK_TITLE_PREFIX',
+  BookTitleSuffix = 'BOOK_TITLE_SUFFIX',
 }
 
 export interface ValueCreator {
@@ -395,11 +445,17 @@ const setSeed = (seed: number) => {
   chance = chanceImport.Chance(seed);
 };
 
+const combine = (seed: number, types: DataType[]) => {
+  return types.map((dataType) => DataGenerators[dataType].createValue(seed)).join(' ');
+};
+
 export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.ID]: { createValue: (_seed) => idSequence++ },
   [DataType.FullName]: {
-    createValue: (seed) =>
-      DataGenerators[DataType.FirstName].createValue(seed) + ' ' + DataGenerators[DataType.LastName].createValue(seed),
+    createValue: (seed) => combine(seed, [DataType.FirstName, DataType.LastName]),
+  },
+  [DataType.BookTitle]: {
+    createValue: (seed) => combine(seed, [DataType.BookTitlePrefix, DataType.BookTitleSuffix]),
   },
   [DataType.Email]: {
     createValue: (seed) =>
@@ -481,6 +537,8 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
       return chance.address();
     },
   },
+  [DataType.BookTitlePrefix]: { createValue: (seed) => random(options.BookTitlePrefix, seed) },
+  [DataType.BookTitleSuffix]: { createValue: (seed) => random(options.BookTitleSuffix, seed) },
   [DataType.IBAN]: { createValue: (seed) => random(options.IBAN, seed) },
   [DataType.Occupation]: { createValue: (seed) => random(options.Occupation, seed) },
   [DataType.ProfilePictureURL]: { createValue: (seed) => random(options.ProfilePictureURL, seed) },

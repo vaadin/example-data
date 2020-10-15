@@ -22,6 +22,9 @@ export enum DataType {
   Country = 'COUNTRY',
   ZipCode = 'ZIP_CODE',
   Address = 'ADDRESS',
+  BookTitle = 'BOOK_TITLE',
+  BookTitlePrefix = 'BOOK_TITLE_PREFIX',
+  BookTitleSuffix = 'BOOK_TITLE_SUFFIX',
 }
 
 export interface ValueCreator {
@@ -39,11 +42,17 @@ const setSeed = (seed: number) => {
   chance = chanceImport.Chance(seed);
 };
 
+const combine = (seed: number, types: DataType[]) => {
+  return types.map((dataType) => DataGenerators[dataType].createValue(seed)).join(' ');
+};
+
 export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.ID]: { createValue: (_seed) => idSequence++ },
   [DataType.FullName]: {
-    createValue: (seed) =>
-      DataGenerators[DataType.FirstName].createValue(seed) + ' ' + DataGenerators[DataType.LastName].createValue(seed),
+    createValue: (seed) => combine(seed, [DataType.FirstName, DataType.LastName]),
+  },
+  [DataType.BookTitle]: {
+    createValue: (seed) => combine(seed, [DataType.BookTitlePrefix, DataType.BookTitleSuffix]),
   },
   [DataType.Email]: {
     createValue: (seed) =>
