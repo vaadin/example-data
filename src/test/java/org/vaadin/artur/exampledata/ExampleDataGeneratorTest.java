@@ -140,7 +140,7 @@ public class ExampleDataGeneratorTest {
 
     @Test
     public void allTypesEntity() {
-        ExampleDataGenerator<AllDataTypes> generator = new ExampleDataGenerator<>(AllDataTypes.class, 123L);
+        ExampleDataGenerator<AllDataTypes> generator = new ExampleDataGenerator<>(AllDataTypes.class);
         generator.setData(AllDataTypes::setId, DataType.ID);
         generator.setData(AllDataTypes::setFirstName, DataType.FIRST_NAME);
         generator.setData(AllDataTypes::setLastName, DataType.LAST_NAME);
@@ -177,7 +177,7 @@ public class ExampleDataGeneratorTest {
 
     @Test
     public void allTypesManyEntities() {
-        ExampleDataGenerator<AllDataTypes> generator = new ExampleDataGenerator<>(AllDataTypes.class, 123L);
+        ExampleDataGenerator<AllDataTypes> generator = new ExampleDataGenerator<>(AllDataTypes.class);
         generator.setData(AllDataTypes::setId, DataType.ID);
         generator.setData(AllDataTypes::setFirstName, DataType.FIRST_NAME);
         generator.setData(AllDataTypes::setLastName, DataType.LAST_NAME);
@@ -192,7 +192,7 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setAmountOfMoney, DataType.AMOUNT_OF_MONEY);
         generator.setData(AllDataTypes::setDateOfBirth, DataType.DATE_OF_BIRTH);
         generator.setData(AllDataTypes::setPhoneNumber, DataType.PHONE_NUMBER);
-        List<AllDataTypes> entities = generator.create(10);
+        List<AllDataTypes> entities = generator.create(10, 123);
 
         Assert.assertEquals(10, entities.size());
         for (AllDataTypes allDataTypes : entities) {
