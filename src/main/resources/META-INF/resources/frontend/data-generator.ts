@@ -487,7 +487,7 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.AmountOfMoney]: {
     createValue: (seed) => {
       setSeed(seed);
-      return chance.floating({ min: 1000, max: 100000 });
+      return chance.integer({ min: 1000, max: 100000 });
     },
   },
   [DataType.FirstName]: {
