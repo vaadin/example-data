@@ -17,6 +17,7 @@ public abstract class DataType<F> {
     public static final DataType<String> EMAIL = new EmailGenerator();
     public static final DataType<String> PROFILE_PICTURE_URL = new DataTypeWithRandomOptions("ProfilePictureURL.txt");
     public static final DataType<Integer> AMOUNT_OF_MONEY = new IntegerProvider(1000, 100000);
+    public static final DataType<Double> PRICE = new ChanceDoubleType("floating", "{min: 1, max: 500, fixed: 2}");
     public static final DataType<LocalDate> DATE_OF_BIRTH = new ChanceLocalDateType("birthday", "{string: true}");
     public static final DataType<String> PHONE_NUMBER = new ChanceStringType("phone");
     public static final DataType<String> CITY = new ChanceStringType("city");

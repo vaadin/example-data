@@ -45,6 +45,10 @@ public class ChanceInterface {
         }
     }
 
+    public static Double getDouble(int seed, String type, String options) {
+        return Double.parseDouble(getString(seed, type, options));
+    }
+
     public static LocalDate getLocalDate(int seed, String type, String options) {
         try {
             init();

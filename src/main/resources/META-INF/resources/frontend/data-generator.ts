@@ -447,6 +447,7 @@ export enum DataType {
   BookTitlePrefix = 'BOOK_TITLE_PREFIX',
   BookTitleSuffix = 'BOOK_TITLE_SUFFIX',
   BookGenre = 'BOOK_GENRE',
+  Price = 'PRICE',
 }
 
 export interface ValueCreator {
@@ -488,6 +489,12 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
     createValue: (seed) => {
       setSeed(seed);
       return chance.integer({ min: 1000, max: 100000 });
+    },
+  },
+  [DataType.Price]: {
+    createValue: (seed) => {
+      setSeed(seed);
+      return chance.floating({ min: 1, max: 500, fixed: 2 });
     },
   },
   [DataType.FirstName]: {

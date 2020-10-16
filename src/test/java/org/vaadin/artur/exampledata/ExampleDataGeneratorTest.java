@@ -15,6 +15,7 @@ public class ExampleDataGeneratorTest {
                 email, profilePictureURL, phoneNumber;
         private int amountOfMoney;
         private LocalDate dateOfBirth;
+        private double price;
 
         public Integer getId() {
             return id;
@@ -112,13 +113,12 @@ public class ExampleDataGeneratorTest {
             this.amountOfMoney = amountOfMoney;
         }
 
-        @Override
-        public String toString() {
-            return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
-                    + ", companyName=" + companyName + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain
-                    + ", email=" + email + ", firstName=" + firstName + ", id=" + id + ", lastName=" + lastName
-                    + ", occupation=" + occupation + ", phoneNumber=" + phoneNumber + ", profilePictureURL="
-                    + profilePictureURL + ", tranasctionStatus=" + tranasctionStatus + "]";
+        public double getPrice() {
+            return price;
+        }
+
+        public void setPrice(double price) {
+            this.price = price;
         }
 
         public void setDateOfBirth(LocalDate dateOfBirth) {
@@ -135,6 +135,16 @@ public class ExampleDataGeneratorTest {
 
         public void setPhoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
+        }
+
+        @Override
+        public String toString() {
+            return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
+                    + ", companyName=" + companyName + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain
+                    + ", email=" + email + ", firstName=" + firstName + ", fullName=" + fullName + ", id=" + id
+                    + ", lastName=" + lastName + ", occupation=" + occupation + ", phoneNumber=" + phoneNumber
+                    + ", price=" + price + ", profilePictureURL=" + profilePictureURL + ", tranasctionStatus="
+                    + tranasctionStatus + "]";
         }
     }
 
@@ -155,6 +165,7 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setDateOfBirth, DataType.DATE_OF_BIRTH);
         generator.setData(AllDataTypes::setPhoneNumber, DataType.PHONE_NUMBER);
         generator.setData(AllDataTypes::setFullName, DataType.FULL_NAME);
+        generator.setData(AllDataTypes::setPrice, DataType.PRICE);
 
         AllDataTypes allDataTypes = generator.createBean(2015781843);
         LoggerFactory.getLogger(getClass()).info("Created entity {}", allDataTypes);
@@ -173,6 +184,7 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals(LocalDate.of(1974, 4, 13), allDataTypes.getDateOfBirth());
         Assert.assertEquals("(660) 856-4069", allDataTypes.getPhoneNumber());
         Assert.assertEquals("Nell Testi", allDataTypes.getFullName());
+        Assert.assertEquals(62.8, allDataTypes.getPrice(), 0);
     }
 
     @Test
