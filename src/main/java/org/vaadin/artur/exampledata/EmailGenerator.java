@@ -6,9 +6,10 @@ public class EmailGenerator extends DataType<String> {
 
     @Override
     public String getValue(Random random, int seed) {
-        return DataType.FIRST_NAME.getValue(random, seed).toLowerCase() + "."
+        String email = DataType.FIRST_NAME.getValue(random, seed).toLowerCase() + "."
                 + DataType.LAST_NAME.getValue(random, seed).toLowerCase() + "@"
                 + DataType.DOMAIN.getValue(random, seed);
+        return email.replace(" ", "");
     }
 
 }

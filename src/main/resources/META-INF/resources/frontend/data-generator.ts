@@ -478,12 +478,15 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
     createValue: (seed) => combine(seed, [DataType.BookTitlePrefix, DataType.BookTitleSuffix]),
   },
   [DataType.Email]: {
-    createValue: (seed) =>
-      DataGenerators[DataType.FirstName].createValue(seed).toLowerCase() +
-      '.' +
-      DataGenerators[DataType.LastName].createValue(seed).toLowerCase() +
-      '@' +
-      DataGenerators[DataType.Domain].createValue(seed),
+    createValue: (seed) => {
+      const email =
+        DataGenerators[DataType.FirstName].createValue(seed).toLowerCase() +
+        '.' +
+        DataGenerators[DataType.LastName].createValue(seed).toLowerCase() +
+        '@' +
+        DataGenerators[DataType.Domain].createValue(seed);
+      return email.replace(/ /g, '');
+    },
   },
   [DataType.AmountOfMoney]: {
     createValue: (seed) => {
