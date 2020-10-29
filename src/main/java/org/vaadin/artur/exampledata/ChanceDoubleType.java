@@ -18,7 +18,7 @@ public class ChanceDoubleType extends DataType<Double> {
 
     @Override
     public Double getValue(Random random, int seed) {
-        return ChanceInterface.getDouble(seed, this.type, this.options);
+        return NodeScriptInterface.getChanceDouble(seed, this.type, this.options);
     }
 
 }

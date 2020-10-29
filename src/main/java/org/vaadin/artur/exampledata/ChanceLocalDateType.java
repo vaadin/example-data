@@ -20,7 +20,7 @@ public class ChanceLocalDateType extends DataType<LocalDate> {
     @Override
     public LocalDate getValue(Random random, int seed) {
         random.setSeed(seed);
-        return ChanceInterface.getLocalDate(random.nextInt(), this.type, this.options);
+        return NodeScriptInterface.getChanceLocalDate(random.nextInt(), this.type, this.options);
     }
 
 }

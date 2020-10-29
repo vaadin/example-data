@@ -1,5 +1,7 @@
 const chanceImport = require('chance');
+const cdigit = require('cdigit');
 const options: any = {};
+
 /* Generator: randomOptions */
 
 export enum DataType {
@@ -27,6 +29,14 @@ export enum DataType {
   BookTitleSuffix = 'BOOK_TITLE_SUFFIX',
   BookGenre = 'BOOK_GENRE',
   Price = 'PRICE',
+  Word = 'WORD',
+  TwoWords = 'TWO_WORDS',
+  Sentence = 'SENTENCE',
+  Ean13 = 'EAN13',
+  NumberUpTo10 = 'NUMBER_UP_TO_10',
+  NumberUpTo100 = 'NUMBER_UP_TO_100',
+  NumberUpTo1000 = 'NUMBER_UP_TO_1000',
+  NumberUpTo10000 = 'NUMBER_UP_TO_10000',
 }
 
 export interface ValueCreator {
@@ -44,17 +54,26 @@ const setSeed = (seed: number) => {
   chance = chanceImport.Chance(seed);
 };
 
-const combine = (seed: number, types: DataType[]) => {
-  return types.map((dataType) => DataGenerators[dataType].createValue(seed)).join(' ');
+const combine = (seed: number, sameSeed: boolean, seedOffset: number, types: DataType[]) => {
+  seed += seedOffset;
+  const values = [];
+  for (let i = 0; i < types.length; i++) {
+    const value = DataGenerators[types[i]].createValue(seed);
+    values.push(value);
+    if (!sameSeed) {
+      seed++;
+    }
+  }
+  return values.join(' ');
 };
 
 export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.ID]: { createValue: (_seed) => idSequence++ },
   [DataType.FullName]: {
-    createValue: (seed) => combine(seed, [DataType.FirstName, DataType.LastName]),
+    createValue: (seed) => combine(seed, true, 0, [DataType.FirstName, DataType.LastName]),
   },
   [DataType.BookTitle]: {
-    createValue: (seed) => combine(seed, [DataType.BookTitlePrefix, DataType.BookTitleSuffix]),
+    createValue: (seed) => combine(seed, true, 0, [DataType.BookTitlePrefix, DataType.BookTitleSuffix]),
   },
   [DataType.Email]: {
     createValue: (seed) => {
@@ -143,6 +162,53 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
     createValue: (seed) => {
       setSeed(seed);
       return chance.address();
+    },
+  },
+  [DataType.Word]: {
+    createValue: (seed) => {
+      setSeed(seed);
+      return chance.word();
+    },
+  },
+  [DataType.TwoWords]: {
+    createValue: (seed) => {
+      return combine(seed, false, 1, [DataType.Word, DataType.Word]);
+    },
+  },
+  [DataType.Sentence]: {
+    createValue: (seed) => {
+      setSeed(seed);
+      return chance.sentence();
+    },
+  },
+  [DataType.Ean13]: {
+    createValue: (seed) => {
+      setSeed(seed);
+      return cdigit.gtin.generate(chance.integer({ min: 1, max: 999999999999 }));
+    },
+  },
+  [DataType.NumberUpTo10]: {
+    createValue: (seed) => {
+      setSeed(seed);
+      return chance.integer({ min: 1, max: 10 });
+    },
+  },
+  [DataType.NumberUpTo100]: {
+    createValue: (seed) => {
+      setSeed(seed);
+      return chance.integer({ min: 1, max: 100 });
+    },
+  },
+  [DataType.NumberUpTo1000]: {
+    createValue: (seed) => {
+      setSeed(seed);
+      return chance.integer({ min: 1, max: 1000 });
+    },
+  },
+  [DataType.NumberUpTo10000]: {
+    createValue: (seed) => {
+      setSeed(seed);
+      return chance.integer({ min: 1, max: 10000 });
     },
   },
   /* Generator: randomOptionGenerators */

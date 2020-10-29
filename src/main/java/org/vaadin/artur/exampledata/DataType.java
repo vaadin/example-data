@@ -16,7 +16,8 @@ public abstract class DataType<F> {
     public static final DataType<String> TRANSACTION_STATUS = new DataTypeWithRandomOptions("TransactionStatus.txt");
     public static final DataType<String> EMAIL = new EmailGenerator();
     public static final DataType<String> PROFILE_PICTURE_URL = new DataTypeWithRandomOptions("ProfilePictureURL.txt");
-    public static final DataType<Integer> AMOUNT_OF_MONEY = new IntegerProvider(1000, 100000);
+    public static final DataType<Integer> AMOUNT_OF_MONEY = new ChanceIntegerType("integer",
+            "{min: 1000, max: 100000}");
     public static final DataType<Double> PRICE = new ChanceDoubleType("floating", "{min: 1, max: 500, fixed: 2}");
     public static final DataType<LocalDate> DATE_OF_BIRTH = new ChanceLocalDateType("birthday", "{string: true}");
     public static final DataType<String> PHONE_NUMBER = new ChanceStringType("phone");
@@ -29,6 +30,14 @@ public abstract class DataType<F> {
     public static final DataType<String> BOOK_TITLE_SUFFIX = new DataTypeWithRandomOptions("BookTitleSuffix.txt");
     public static final DataType<String> BOOK_TITLE = new CombinedStringGenerator(BOOK_TITLE_PREFIX, BOOK_TITLE_SUFFIX);
     public static final DataType<String> BOOK_GENRE = new DataTypeWithRandomOptions("BookGenre.txt");
+    public static final DataType<String> WORD = new ChanceStringType("word");
+    public static final DataType<String> TWO_WORDS = new CombinedStringGenerator(false, 1, WORD, WORD);
+    public static final DataType<String> SENTENCE = new ChanceStringType("sentence");
+    public static final DataType<String> EAN13 = new EanGenerator();
+    public static final DataType<Integer> NUMBER_UP_TO_10 = new ChanceIntegerType("integer", "{min: 1, max: 10}");
+    public static final DataType<Integer> NUMBER_UP_TO_100 = new ChanceIntegerType("integer", "{min: 1, max: 100}");
+    public static final DataType<Integer> NUMBER_UP_TO_1000 = new ChanceIntegerType("integer", "{min: 1, max: 1000}");
+    public static final DataType<Integer> NUMBER_UP_TO_10000 = new ChanceIntegerType("integer", "{min: 1, max: 10000}");
 
     protected DataType() {
         //

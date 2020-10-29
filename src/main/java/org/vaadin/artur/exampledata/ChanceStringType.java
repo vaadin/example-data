@@ -18,7 +18,7 @@ public class ChanceStringType extends DataType<String> {
 
     @Override
     public String getValue(Random random, int seed) {
-        return ChanceInterface.getString(seed, this.type, this.options);
+        return NodeScriptInterface.getChanceString(seed, this.type, this.options);
     }
 
 }

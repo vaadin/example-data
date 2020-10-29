@@ -16,6 +16,12 @@ public class ExampleDataGeneratorTest {
         private int amountOfMoney;
         private LocalDate dateOfBirth;
         private double price;
+        private String ean;
+        private String word, twoWords, sentence;
+        private int lessThan10;
+        private int lessThan100;
+        private int lessThan1000;
+        private int lessThan10000;
 
         public Integer getId() {
             return id;
@@ -137,15 +143,86 @@ public class ExampleDataGeneratorTest {
             this.phoneNumber = phoneNumber;
         }
 
+        public String getEan() {
+            return ean;
+        }
+
+        public void setEan(String ean) {
+            this.ean = ean;
+        }
+
+        public void setAmountOfMoney(int amountOfMoney) {
+            this.amountOfMoney = amountOfMoney;
+        }
+
+        public String getWord() {
+            return word;
+        }
+
+        public void setWord(String word) {
+            this.word = word;
+        }
+
+        public String getTwoWords() {
+            return twoWords;
+        }
+
+        public void setTwoWords(String twoWords) {
+            this.twoWords = twoWords;
+        }
+
+        public String getSentence() {
+            return sentence;
+        }
+
+        public void setSentence(String sentence) {
+            this.sentence = sentence;
+        }
+
+        public int getLessThan10() {
+            return lessThan10;
+        }
+
+        public void setLessThan10(int lessThan10) {
+            this.lessThan10 = lessThan10;
+        }
+
+        public int getLessThan100() {
+            return lessThan100;
+        }
+
+        public void setLessThan100(int lessThan100) {
+            this.lessThan100 = lessThan100;
+        }
+
+        public int getLessThan1000() {
+            return lessThan1000;
+        }
+
+        public void setLessThan1000(int lessThan1000) {
+            this.lessThan1000 = lessThan1000;
+        }
+
+        public int getLessThan10000() {
+            return lessThan10000;
+        }
+
+        public void setLessThan10000(int lessThan10000) {
+            this.lessThan10000 = lessThan10000;
+        }
+
         @Override
         public String toString() {
             return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
-                    + ", companyName=" + companyName + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain
-                    + ", email=" + email + ", firstName=" + firstName + ", fullName=" + fullName + ", id=" + id
-                    + ", lastName=" + lastName + ", occupation=" + occupation + ", phoneNumber=" + phoneNumber
-                    + ", price=" + price + ", profilePictureURL=" + profilePictureURL + ", tranasctionStatus="
-                    + tranasctionStatus + "]";
+                    + ", companyName=" + companyName + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain + ", ean="
+                    + ean + ", email=" + email + ", firstName=" + firstName + ", fullName=" + fullName + ", id=" + id
+                    + ", lastName=" + lastName + ", lessThan10=" + lessThan10 + ", lessThan100=" + lessThan100
+                    + ", lessThan1000=" + lessThan1000 + ", lessThan10000=" + lessThan10000 + ", occupation="
+                    + occupation + ", phoneNumber=" + phoneNumber + ", price=" + price + ", profilePictureURL="
+                    + profilePictureURL + ", sentence=" + sentence + ", tranasctionStatus=" + tranasctionStatus
+                    + ", twoWords=" + twoWords + ", word=" + word + "]";
         }
+
     }
 
     @Test
@@ -166,6 +243,14 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setPhoneNumber, DataType.PHONE_NUMBER);
         generator.setData(AllDataTypes::setFullName, DataType.FULL_NAME);
         generator.setData(AllDataTypes::setPrice, DataType.PRICE);
+        generator.setData(AllDataTypes::setEan, DataType.EAN13);
+        generator.setData(AllDataTypes::setWord, DataType.WORD);
+        generator.setData(AllDataTypes::setTwoWords, DataType.TWO_WORDS);
+        generator.setData(AllDataTypes::setSentence, DataType.SENTENCE);
+        generator.setData(AllDataTypes::setLessThan10, DataType.NUMBER_UP_TO_10);
+        generator.setData(AllDataTypes::setLessThan100, DataType.NUMBER_UP_TO_100);
+        generator.setData(AllDataTypes::setLessThan1000, DataType.NUMBER_UP_TO_1000);
+        generator.setData(AllDataTypes::setLessThan10000, DataType.NUMBER_UP_TO_10000);
 
         AllDataTypes allDataTypes = generator.createBean(2015781843);
         LoggerFactory.getLogger(getClass()).info("Created entity {}", allDataTypes);
@@ -180,11 +265,21 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals("nell.testi@cunkob.li", allDataTypes.getEmail());
         Assert.assertEquals("https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=300",
                 allDataTypes.getProfilePictureURL());
-        Assert.assertEquals(36221, allDataTypes.getAmountOfMoney());
+        Assert.assertEquals(52945, allDataTypes.getAmountOfMoney());
         Assert.assertEquals(LocalDate.of(1974, 4, 13), allDataTypes.getDateOfBirth());
         Assert.assertEquals("(660) 856-4069", allDataTypes.getPhoneNumber());
         Assert.assertEquals("Nell Testi", allDataTypes.getFullName());
-        Assert.assertEquals(62.8, allDataTypes.getPrice(), 0);
+        Assert.assertEquals(262.82, allDataTypes.getPrice(), 0);
+        Assert.assertEquals("5246924979151", allDataTypes.getEan());
+        Assert.assertEquals("cunkob", allDataTypes.getWord());
+        Assert.assertEquals("apiifu uvicizati", allDataTypes.getTwoWords());
+        Assert.assertEquals(
+                "Ankobuki noivrok biveguod bubel se icwibjiz jopken puile luzci su jamafocil jamki igvo doswaczuk zohrogoc.",
+                allDataTypes.getSentence());
+        Assert.assertEquals(6, allDataTypes.getLessThan10());
+        Assert.assertEquals(53, allDataTypes.getLessThan100());
+        Assert.assertEquals(525, allDataTypes.getLessThan1000());
+        Assert.assertEquals(5247, allDataTypes.getLessThan10000());
     }
 
     @Test
