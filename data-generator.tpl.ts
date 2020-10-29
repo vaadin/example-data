@@ -37,6 +37,9 @@ export enum DataType {
   NumberUpTo100 = 'NUMBER_UP_TO_100',
   NumberUpTo1000 = 'NUMBER_UP_TO_1000',
   NumberUpTo10000 = 'NUMBER_UP_TO_10000',
+  FoodProductName = 'FOOD_PRODUCT_NAME',
+  FoodProductImage = 'FOOD_PRODUCT_IMAGE',
+  FoodProductEan = 'FOOD_PRODUCT_EAN',
 }
 
 export interface ValueCreator {
@@ -209,6 +212,21 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
     createValue: (seed) => {
       setSeed(seed);
       return chance.integer({ min: 1, max: 10000 });
+    },
+  },
+  [DataType.FoodProductEan]: {
+    createValue: (seed) => {
+      return random(options.FoodProducts, seed).split('\t')[0];
+    },
+  },
+  [DataType.FoodProductName]: {
+    createValue: (seed) => {
+      return random(options.FoodProducts, seed).split('\t')[1];
+    },
+  },
+  [DataType.FoodProductImage]: {
+    createValue: (seed) => {
+      return random(options.FoodProducts, seed).split('\t')[2];
     },
   },
   /* Generator: randomOptionGenerators */

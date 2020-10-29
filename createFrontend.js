@@ -17,7 +17,9 @@ fs.readdirSync(inputFilePath).forEach((file) => {
   generatorRandomOptions += `options.${optionName} = ${optionsArray};\n\n`;
 
   // [DataType.CompanyName]: { createValue: () => random(options.companyName) },
-  generatorRandomOptionGenerators += `  [DataType.${optionName}]: { createValue: (seed) => random(options.${optionName}, seed)},\n`;
+  if (optionName != 'FoodProducts') {
+    generatorRandomOptionGenerators += `  [DataType.${optionName}]: { createValue: (seed) => random(options.${optionName}, seed)},\n`;
+  }
 });
 
 let contents = fs.readFileSync(template, { encoding: 'UTF-8' });

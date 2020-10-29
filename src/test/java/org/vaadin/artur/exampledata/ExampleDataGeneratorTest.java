@@ -22,6 +22,7 @@ public class ExampleDataGeneratorTest {
         private int lessThan100;
         private int lessThan1000;
         private int lessThan10000;
+        private String foodProductName, foodProductEan, foodProductImageUrl;
 
         public Integer getId() {
             return id;
@@ -211,16 +212,41 @@ public class ExampleDataGeneratorTest {
             this.lessThan10000 = lessThan10000;
         }
 
+        public String getFoodProductName() {
+            return foodProductName;
+        }
+
+        public void setFoodProductName(String foodProductName) {
+            this.foodProductName = foodProductName;
+        }
+
+        public String getFoodProductEan() {
+            return foodProductEan;
+        }
+
+        public void setFoodProductEan(String foodProductEan) {
+            this.foodProductEan = foodProductEan;
+        }
+
+        public String getFoodProductImageUrl() {
+            return foodProductImageUrl;
+        }
+
+        public void setFoodProductImageUrl(String foodProductImageUrl) {
+            this.foodProductImageUrl = foodProductImageUrl;
+        }
+
         @Override
         public String toString() {
             return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
                     + ", companyName=" + companyName + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain + ", ean="
-                    + ean + ", email=" + email + ", firstName=" + firstName + ", fullName=" + fullName + ", id=" + id
-                    + ", lastName=" + lastName + ", lessThan10=" + lessThan10 + ", lessThan100=" + lessThan100
-                    + ", lessThan1000=" + lessThan1000 + ", lessThan10000=" + lessThan10000 + ", occupation="
-                    + occupation + ", phoneNumber=" + phoneNumber + ", price=" + price + ", profilePictureURL="
-                    + profilePictureURL + ", sentence=" + sentence + ", tranasctionStatus=" + tranasctionStatus
-                    + ", twoWords=" + twoWords + ", word=" + word + "]";
+                    + ean + ", email=" + email + ", firstName=" + firstName + ", foodProductEan=" + foodProductEan
+                    + ", foodProductImageUrl=" + foodProductImageUrl + ", foodProductName=" + foodProductName
+                    + ", fullName=" + fullName + ", id=" + id + ", lastName=" + lastName + ", lessThan10=" + lessThan10
+                    + ", lessThan100=" + lessThan100 + ", lessThan1000=" + lessThan1000 + ", lessThan10000="
+                    + lessThan10000 + ", occupation=" + occupation + ", phoneNumber=" + phoneNumber + ", price=" + price
+                    + ", profilePictureURL=" + profilePictureURL + ", sentence=" + sentence + ", tranasctionStatus="
+                    + tranasctionStatus + ", twoWords=" + twoWords + ", word=" + word + "]";
         }
 
     }
@@ -251,6 +277,9 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setLessThan100, DataType.NUMBER_UP_TO_100);
         generator.setData(AllDataTypes::setLessThan1000, DataType.NUMBER_UP_TO_1000);
         generator.setData(AllDataTypes::setLessThan10000, DataType.NUMBER_UP_TO_10000);
+        generator.setData(AllDataTypes::setFoodProductEan, DataType.FOOD_PRODUCT_EAN);
+        generator.setData(AllDataTypes::setFoodProductImageUrl, DataType.FOOD_PRODUCT_IMAGE);
+        generator.setData(AllDataTypes::setFoodProductName, DataType.FOOD_PRODUCT_NAME);
 
         AllDataTypes allDataTypes = generator.createBean(2015781843);
         LoggerFactory.getLogger(getClass()).info("Created entity {}", allDataTypes);
@@ -280,6 +309,10 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals(53, allDataTypes.getLessThan100());
         Assert.assertEquals(525, allDataTypes.getLessThan1000());
         Assert.assertEquals(5247, allDataTypes.getLessThan10000());
+        Assert.assertEquals("Taillefine", allDataTypes.getFoodProductName());
+        Assert.assertEquals("https://static.openfoodfacts.org/images/products/15054313/front_fr.4.400.jpg",
+                allDataTypes.getFoodProductImageUrl());
+        Assert.assertEquals("15054313", allDataTypes.getFoodProductEan());
     }
 
     @Test

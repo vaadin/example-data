@@ -38,6 +38,9 @@ public abstract class DataType<F> {
     public static final DataType<Integer> NUMBER_UP_TO_100 = new ChanceIntegerType("integer", "{min: 1, max: 100}");
     public static final DataType<Integer> NUMBER_UP_TO_1000 = new ChanceIntegerType("integer", "{min: 1, max: 1000}");
     public static final DataType<Integer> NUMBER_UP_TO_10000 = new ChanceIntegerType("integer", "{min: 1, max: 10000}");
+    public static final DataType<String> FOOD_PRODUCT_EAN = new FoodProductEan();
+    public static final DataType<String> FOOD_PRODUCT_NAME = new FoodProductName();
+    public static final DataType<String> FOOD_PRODUCT_IMAGE = new FoodProductImage();
 
     protected DataType() {
         //
