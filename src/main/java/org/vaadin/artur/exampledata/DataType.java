@@ -30,6 +30,9 @@ public abstract class DataType<F> {
     public static final DataType<String> BOOK_TITLE_SUFFIX = new DataTypeWithRandomOptions("BookTitleSuffix.txt");
     public static final DataType<String> BOOK_TITLE = new CombinedStringGenerator(BOOK_TITLE_PREFIX, BOOK_TITLE_SUFFIX);
     public static final DataType<String> BOOK_GENRE = new DataTypeWithRandomOptions("BookGenre.txt");
+    public static final DataType<String> BOOK_IMAGE_BACKGROUND = new DataTypeWithRandomOptions(
+            "BookImageBackground.txt");
+    public static final DataType<String> BOOK_IMAGE_URL = new BookImageGenerator();
     public static final DataType<String> WORD = new ChanceStringType("word");
     public static final DataType<String> TWO_WORDS = new CombinedStringGenerator(false, 1, WORD, WORD);
     public static final DataType<String> SENTENCE = new ChanceStringType("sentence");

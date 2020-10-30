@@ -9,15 +9,16 @@ const inputFilePath = 'src/main/resources/org/vaadin/artur/exampledata';
 let generatorRandomOptions = '';
 let generatorRandomOptionGenerators = '';
 fs.readdirSync(inputFilePath).forEach((file) => {
+  const textFile = file.endsWith('.txt');
   const optionName = file.replace('.txt', '');
   const options = fs.readFileSync(inputFilePath + '/' + file, { encoding: 'UTF-8' });
   const optionsArray = JSON.stringify(options.split('\n').filter((value) => value.trim().length > 0));
 
   // options.FirstName = [...];
-  generatorRandomOptions += `options.${optionName} = ${optionsArray};\n\n`;
+  generatorRandomOptions += `options["${optionName}"] = ${optionsArray};\n\n`;
 
   // [DataType.CompanyName]: { createValue: () => random(options.companyName) },
-  if (optionName != 'FoodProducts') {
+  if (textFile && optionName != 'FoodProducts') {
     generatorRandomOptionGenerators += `  [DataType.${optionName}]: { createValue: (seed) => random(options.${optionName}, seed)},\n`;
   }
 });

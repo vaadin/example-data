@@ -27,6 +27,8 @@ export enum DataType {
   BookTitle = 'BOOK_TITLE',
   BookTitlePrefix = 'BOOK_TITLE_PREFIX',
   BookTitleSuffix = 'BOOK_TITLE_SUFFIX',
+  BookImageUrl = 'BOOK_IMAGE_URL',
+  BookImageBackground = 'BOOK_IMAGE_BACKGROUND',
   BookGenre = 'BOOK_GENRE',
   Price = 'PRICE',
   Word = 'WORD',
@@ -227,6 +229,21 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.FoodProductImage]: {
     createValue: (seed) => {
       return random(options.FoodProducts, seed).split('\t')[2];
+    },
+  },
+  [DataType.BookImageUrl]: {
+    createValue: (seed) => {
+      const title = DataGenerators[DataType.BookTitle].createValue(seed);
+      const author = DataGenerators[DataType.FullName].createValue(seed);
+      const imageBackgroundUrl = DataGenerators[DataType.BookImageBackground].createValue(seed);
+
+      const template = options['bookcover.svg.tpl'].join('\n');
+      return (
+        'data:image/svg+xml;utf8,' +
+        encodeURIComponent(
+          template.replace('#title#', title).replace('#image#', imageBackgroundUrl).replace('#author#', author)
+        )
+      );
     },
   },
   /* Generator: randomOptionGenerators */

@@ -1,8 +1,15 @@
 package org.vaadin.artur.exampledata;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
@@ -23,6 +30,7 @@ public class ExampleDataGeneratorTest {
         private int lessThan1000;
         private int lessThan10000;
         private String foodProductName, foodProductEan, foodProductImageUrl;
+        private String bookTitle, bookCoverImage;
 
         public Integer getId() {
             return id;
@@ -236,23 +244,39 @@ public class ExampleDataGeneratorTest {
             this.foodProductImageUrl = foodProductImageUrl;
         }
 
+        public String getBookTitle() {
+            return bookTitle;
+        }
+
+        public void setBookTitle(String bookTitle) {
+            this.bookTitle = bookTitle;
+        }
+
+        public String getBookCoverImage() {
+            return bookCoverImage;
+        }
+
+        public void setBookCoverImage(String bookCoverImage) {
+            this.bookCoverImage = bookCoverImage;
+        }
+
         @Override
         public String toString() {
-            return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
-                    + ", companyName=" + companyName + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain + ", ean="
-                    + ean + ", email=" + email + ", firstName=" + firstName + ", foodProductEan=" + foodProductEan
-                    + ", foodProductImageUrl=" + foodProductImageUrl + ", foodProductName=" + foodProductName
-                    + ", fullName=" + fullName + ", id=" + id + ", lastName=" + lastName + ", lessThan10=" + lessThan10
-                    + ", lessThan100=" + lessThan100 + ", lessThan1000=" + lessThan1000 + ", lessThan10000="
-                    + lessThan10000 + ", occupation=" + occupation + ", phoneNumber=" + phoneNumber + ", price=" + price
-                    + ", profilePictureURL=" + profilePictureURL + ", sentence=" + sentence + ", tranasctionStatus="
-                    + tranasctionStatus + ", twoWords=" + twoWords + ", word=" + word + "]";
+            return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney + ", bookTitle="
+                    + bookTitle + ", companyName=" + companyName + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain
+                    + ", ean=" + ean + ", email=" + email + ", firstName=" + firstName + ", foodProductEan="
+                    + foodProductEan + ", foodProductImageUrl=" + foodProductImageUrl + ", foodProductName="
+                    + foodProductName + ", fullName=" + fullName + ", id=" + id + ", lastName=" + lastName
+                    + ", lessThan10=" + lessThan10 + ", lessThan100=" + lessThan100 + ", lessThan1000=" + lessThan1000
+                    + ", lessThan10000=" + lessThan10000 + ", occupation=" + occupation + ", phoneNumber=" + phoneNumber
+                    + ", price=" + price + ", profilePictureURL=" + profilePictureURL + ", sentence=" + sentence
+                    + ", tranasctionStatus=" + tranasctionStatus + ", twoWords=" + twoWords + ", word=" + word + "]";
         }
 
     }
 
     @Test
-    public void allTypesEntity() {
+    public void allTypesEntity() throws UnsupportedEncodingException {
         ExampleDataGenerator<AllDataTypes> generator = new ExampleDataGenerator<>(AllDataTypes.class);
         generator.setData(AllDataTypes::setId, DataType.ID);
         generator.setData(AllDataTypes::setFirstName, DataType.FIRST_NAME);
@@ -280,6 +304,8 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setFoodProductEan, DataType.FOOD_PRODUCT_EAN);
         generator.setData(AllDataTypes::setFoodProductImageUrl, DataType.FOOD_PRODUCT_IMAGE);
         generator.setData(AllDataTypes::setFoodProductName, DataType.FOOD_PRODUCT_NAME);
+        generator.setData(AllDataTypes::setBookTitle, DataType.BOOK_TITLE);
+        generator.setData(AllDataTypes::setBookCoverImage, DataType.BOOK_IMAGE_URL);
 
         AllDataTypes allDataTypes = generator.createBean(2015781843);
         LoggerFactory.getLogger(getClass()).info("Created entity {}", allDataTypes);
@@ -313,6 +339,16 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals("https://static.openfoodfacts.org/images/products/15054313/front_fr.4.400.jpg",
                 allDataTypes.getFoodProductImageUrl());
         Assert.assertEquals("15054313", allDataTypes.getFoodProductEan());
+        Assert.assertEquals("Mastering measuring things", allDataTypes.getBookTitle());
+        MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.not(CoreMatchers.containsString("#")));
+        MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.startsWith("data:image/svg+xml;utf8,"));
+
+        String decodedImage = URLDecoder
+                .decode(allDataTypes.getBookCoverImage().replace("data:image/svg+xml;utf8,", ""), "UTF-8");
+        MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getFullName()));
+        MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getBookTitle()));
+        MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(
+                DataType.BOOK_IMAGE_BACKGROUND.getValue(new Random(), 2015781843).replace("&", "&amp;")));
     }
 
     @Test
