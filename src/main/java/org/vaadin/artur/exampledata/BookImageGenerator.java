@@ -1,9 +1,11 @@
 package org.vaadin.artur.exampledata;
 
-import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.springframework.web.util.UriUtils;
 
 public class BookImageGenerator extends DataType<String> {
 
@@ -15,8 +17,8 @@ public class BookImageGenerator extends DataType<String> {
 
         String[] templateRows = FileCache.get("bookcover.svg.tpl");
         String template = Stream.of(templateRows).collect(Collectors.joining("\n"));
-        return "data:image/svg+xml;utf8," + URLEncoder
-                .encode(template.replace("#title#", title).replace("#image#", imageUrl).replace("#author#", author));
+        String imageData = template.replace("#title#", title).replace("#image#", imageUrl).replace("#author#", author);
+        return "data:image/svg+xml;utf8," + UriUtils.encodeQuery(imageData, StandardCharsets.UTF_8);
     }
 
 }

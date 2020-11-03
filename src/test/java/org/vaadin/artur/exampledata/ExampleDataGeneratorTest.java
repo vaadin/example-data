@@ -13,6 +13,7 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.util.UriUtils;
 
 public class ExampleDataGeneratorTest {
 
@@ -343,8 +344,8 @@ public class ExampleDataGeneratorTest {
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.not(CoreMatchers.containsString("#")));
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.startsWith("data:image/svg+xml;utf8,"));
 
-        String decodedImage = URLDecoder
-                .decode(allDataTypes.getBookCoverImage().replace("data:image/svg+xml;utf8,", ""), "UTF-8");
+        String decodedImage = UriUtils.decode(allDataTypes.getBookCoverImage().replace("data:image/svg+xml;utf8,", ""),
+                StandardCharsets.UTF_8);
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getFullName()));
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getBookTitle()));
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(
