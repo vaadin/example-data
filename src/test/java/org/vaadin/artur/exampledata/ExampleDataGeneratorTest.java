@@ -340,7 +340,7 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals("https://static.openfoodfacts.org/images/products/15054313/front_fr.4.400.jpg",
                 allDataTypes.getFoodProductImageUrl());
         Assert.assertEquals("15054313", allDataTypes.getFoodProductEan());
-        Assert.assertEquals("Mastering measuring things", allDataTypes.getBookTitle());
+        Assert.assertEquals("Mastering designing tree houses", allDataTypes.getBookTitle());
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.not(CoreMatchers.containsString("#")));
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.startsWith("data:image/svg+xml;utf8,"));
 
