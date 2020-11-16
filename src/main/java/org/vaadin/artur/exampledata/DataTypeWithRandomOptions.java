@@ -12,6 +12,11 @@ public class DataTypeWithRandomOptions extends DataType<String> {
 
     public String getValue(Random random, int seed) {
         random.setSeed(seed);
+
+        // This is needed to avoid that random.nextInt(32) gives the same number for
+        // multiple seeds
+        random.nextInt();
+
         return options[random.nextInt(options.length)];
     }
 
