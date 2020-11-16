@@ -1,8 +1,6 @@
 package org.vaadin.artur.exampledata;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
@@ -313,11 +311,11 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals(1, allDataTypes.getId().intValue());
         Assert.assertEquals("Nell", allDataTypes.getFirstName());
         Assert.assertEquals("Testi", allDataTypes.getLastName());
-        Assert.assertEquals("Senior Financial Analyst", allDataTypes.getOccupation());
+        Assert.assertEquals("Business Unit Manager", allDataTypes.getOccupation());
         Assert.assertEquals("IL62 0108 0000 0009 9999 999", allDataTypes.getAccountNumber());
         Assert.assertEquals("Linens 'n Things Inc.", allDataTypes.getCompanyName());
         Assert.assertEquals("cunkob.li", allDataTypes.getDomain());
-        Assert.assertEquals("Pending", allDataTypes.getTranasctionStatus());
+        Assert.assertEquals("Confirmed", allDataTypes.getTranasctionStatus());
         Assert.assertEquals("nell.testi@cunkob.li", allDataTypes.getEmail());
         Assert.assertEquals("https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=300",
                 allDataTypes.getProfilePictureURL());
@@ -340,7 +338,7 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals("https://static.openfoodfacts.org/images/products/15054313/front_fr.4.400.jpg",
                 allDataTypes.getFoodProductImageUrl());
         Assert.assertEquals("15054313", allDataTypes.getFoodProductEan());
-        Assert.assertEquals("Mastering designing tree houses", allDataTypes.getBookTitle());
+        Assert.assertEquals("Becoming one with measuring things", allDataTypes.getBookTitle());
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.not(CoreMatchers.containsString("#")));
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.startsWith("data:image/svg+xml;utf8,"));
 
