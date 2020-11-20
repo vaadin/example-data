@@ -30,6 +30,7 @@ public class ExampleDataGeneratorTest {
         private int lessThan10000;
         private String foodProductName, foodProductEan, foodProductImageUrl;
         private String bookTitle, bookCoverImage;
+        private boolean boolean5050, boolean9010, boolean1090;
 
         public Integer getId() {
             return id;
@@ -259,17 +260,43 @@ public class ExampleDataGeneratorTest {
             this.bookCoverImage = bookCoverImage;
         }
 
+        public boolean isBoolean5050() {
+            return boolean5050;
+        }
+
+        public void setBoolean5050(boolean boolean5050) {
+            this.boolean5050 = boolean5050;
+        }
+
+        public boolean isBoolean1090() {
+            return boolean1090;
+        }
+
+        public void setBoolean1090(boolean boolean1090) {
+            this.boolean1090 = boolean1090;
+        }
+
+        public boolean isBoolean9010() {
+            return boolean9010;
+        }
+
+        public void setBoolean9010(boolean boolean9010) {
+            this.boolean9010 = boolean9010;
+        }
+
         @Override
         public String toString() {
-            return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney + ", bookTitle="
-                    + bookTitle + ", companyName=" + companyName + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain
-                    + ", ean=" + ean + ", email=" + email + ", firstName=" + firstName + ", foodProductEan="
-                    + foodProductEan + ", foodProductImageUrl=" + foodProductImageUrl + ", foodProductName="
-                    + foodProductName + ", fullName=" + fullName + ", id=" + id + ", lastName=" + lastName
-                    + ", lessThan10=" + lessThan10 + ", lessThan100=" + lessThan100 + ", lessThan1000=" + lessThan1000
-                    + ", lessThan10000=" + lessThan10000 + ", occupation=" + occupation + ", phoneNumber=" + phoneNumber
-                    + ", price=" + price + ", profilePictureURL=" + profilePictureURL + ", sentence=" + sentence
-                    + ", tranasctionStatus=" + tranasctionStatus + ", twoWords=" + twoWords + ", word=" + word + "]";
+            return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
+                    + ", bookCoverImage=" + bookCoverImage + ", bookTitle=" + bookTitle + ", boolean1090=" + boolean1090
+                    + ", boolean5050=" + boolean5050 + ", boolean9010=" + boolean9010 + ", companyName=" + companyName
+                    + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain + ", ean=" + ean + ", email=" + email
+                    + ", firstName=" + firstName + ", foodProductEan=" + foodProductEan + ", foodProductImageUrl="
+                    + foodProductImageUrl + ", foodProductName=" + foodProductName + ", fullName=" + fullName + ", id="
+                    + id + ", lastName=" + lastName + ", lessThan10=" + lessThan10 + ", lessThan100=" + lessThan100
+                    + ", lessThan1000=" + lessThan1000 + ", lessThan10000=" + lessThan10000 + ", occupation="
+                    + occupation + ", phoneNumber=" + phoneNumber + ", price=" + price + ", profilePictureURL="
+                    + profilePictureURL + ", sentence=" + sentence + ", tranasctionStatus=" + tranasctionStatus
+                    + ", twoWords=" + twoWords + ", word=" + word + "]";
         }
 
     }
@@ -305,6 +332,9 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setFoodProductName, DataType.FOOD_PRODUCT_NAME);
         generator.setData(AllDataTypes::setBookTitle, DataType.BOOK_TITLE);
         generator.setData(AllDataTypes::setBookCoverImage, DataType.BOOK_IMAGE_URL);
+        generator.setData(AllDataTypes::setBoolean5050, DataType.BOOLEAN_50_50);
+        generator.setData(AllDataTypes::setBoolean9010, DataType.BOOLEAN_90_10);
+        generator.setData(AllDataTypes::setBoolean1090, DataType.BOOLEAN_10_90);
 
         AllDataTypes allDataTypes = generator.createBean(2015781843);
         LoggerFactory.getLogger(getClass()).info("Created entity {}", allDataTypes);

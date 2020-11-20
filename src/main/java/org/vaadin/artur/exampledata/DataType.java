@@ -44,6 +44,9 @@ public abstract class DataType<F> {
     public static final DataType<String> FOOD_PRODUCT_EAN = new FoodProductEan();
     public static final DataType<String> FOOD_PRODUCT_NAME = new FoodProductName();
     public static final DataType<String> FOOD_PRODUCT_IMAGE = new FoodProductImage();
+    public static final DataType<Boolean> BOOLEAN_50_50 = new ChanceBooleanType("bool", "{likelihood: 50}");
+    public static final DataType<Boolean> BOOLEAN_90_10 = new ChanceBooleanType("bool", "{likelihood: 90}");
+    public static final DataType<Boolean> BOOLEAN_10_90 = new ChanceBooleanType("bool", "{likelihood: 10}");
 
     protected DataType() {
         //

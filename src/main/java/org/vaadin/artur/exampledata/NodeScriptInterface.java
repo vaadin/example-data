@@ -54,6 +54,10 @@ public class NodeScriptInterface {
         return Integer.parseInt(getChanceString(seed, type, options));
     }
 
+    public static Boolean getChanceBoolean(int seed, String type, String options) {
+        return Boolean.parseBoolean(getChanceString(seed, type, options));
+    }
+
     public static Double getChanceDouble(int seed, String type, String options) {
         return Double.parseDouble(getChanceString(seed, type, options));
     }

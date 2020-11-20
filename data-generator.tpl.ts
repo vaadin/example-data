@@ -42,6 +42,9 @@ export enum DataType {
   FoodProductName = 'FOOD_PRODUCT_NAME',
   FoodProductImage = 'FOOD_PRODUCT_IMAGE',
   FoodProductEan = 'FOOD_PRODUCT_EAN',
+  Boolean_50_50 = 'BOOLEAN_50_50',
+  Boolean_90_10 = 'BOOLEAN_90_10',
+  Boolean_10_90 = 'BOOLEAN_10_90',
 }
 
 export interface ValueCreator {
@@ -246,5 +249,24 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
       );
     },
   },
+  [DataType.Boolean_50_50]: {
+    createValue: (seed) => {
+      setSeed(seed);
+      return chance.bool({ likelihood: 50 });
+    },
+  },
+  [DataType.Boolean_90_10]: {
+    createValue: (seed) => {
+      setSeed(seed);
+      return chance.bool({ likelihood: 90 });
+    },
+  },
+  [DataType.Boolean_10_90]: {
+    createValue: (seed) => {
+      setSeed(seed);
+      return chance.bool({ likelihood: 10 });
+    },
+  },
+
   /* Generator: randomOptionGenerators */
 };
