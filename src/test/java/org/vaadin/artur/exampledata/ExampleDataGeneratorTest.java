@@ -2,7 +2,9 @@ package org.vaadin.artur.exampledata;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 
@@ -31,6 +33,7 @@ public class ExampleDataGeneratorTest {
         private String foodProductName, foodProductEan, foodProductImageUrl;
         private String bookTitle, bookCoverImage;
         private boolean boolean5050, boolean9010, boolean1090;
+        private LocalDate last10Years, lastYear, last30Days, last7Days;
 
         public Integer getId() {
             return id;
@@ -284,6 +287,38 @@ public class ExampleDataGeneratorTest {
             this.boolean9010 = boolean9010;
         }
 
+        public LocalDate getLast10Years() {
+            return last10Years;
+        }
+
+        public void setLast10Years(LocalDate last10Years) {
+            this.last10Years = last10Years;
+        }
+
+        public LocalDate getLastYear() {
+            return lastYear;
+        }
+
+        public void setLastYear(LocalDate lastYear) {
+            this.lastYear = lastYear;
+        }
+
+        public LocalDate getLast30Days() {
+            return last30Days;
+        }
+
+        public void setLast30Days(LocalDate last30Days) {
+            this.last30Days = last30Days;
+        }
+
+        public LocalDate getLast7Days() {
+            return last7Days;
+        }
+
+        public void setLast7Days(LocalDate last7Days) {
+            this.last7Days = last7Days;
+        }
+
         @Override
         public String toString() {
             return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
@@ -292,11 +327,12 @@ public class ExampleDataGeneratorTest {
                     + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain + ", ean=" + ean + ", email=" + email
                     + ", firstName=" + firstName + ", foodProductEan=" + foodProductEan + ", foodProductImageUrl="
                     + foodProductImageUrl + ", foodProductName=" + foodProductName + ", fullName=" + fullName + ", id="
-                    + id + ", lastName=" + lastName + ", lessThan10=" + lessThan10 + ", lessThan100=" + lessThan100
-                    + ", lessThan1000=" + lessThan1000 + ", lessThan10000=" + lessThan10000 + ", occupation="
-                    + occupation + ", phoneNumber=" + phoneNumber + ", price=" + price + ", profilePictureURL="
-                    + profilePictureURL + ", sentence=" + sentence + ", tranasctionStatus=" + tranasctionStatus
-                    + ", twoWords=" + twoWords + ", word=" + word + "]";
+                    + id + ", last10Years=" + last10Years + ", last30Days=" + last30Days + ", last7Days=" + last7Days
+                    + ", lastName=" + lastName + ", lastYear=" + lastYear + ", lessThan10=" + lessThan10
+                    + ", lessThan100=" + lessThan100 + ", lessThan1000=" + lessThan1000 + ", lessThan10000="
+                    + lessThan10000 + ", occupation=" + occupation + ", phoneNumber=" + phoneNumber + ", price=" + price
+                    + ", profilePictureURL=" + profilePictureURL + ", sentence=" + sentence + ", tranasctionStatus="
+                    + tranasctionStatus + ", twoWords=" + twoWords + ", word=" + word + "]";
         }
 
     }
@@ -335,6 +371,10 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setBoolean5050, DataType.BOOLEAN_50_50);
         generator.setData(AllDataTypes::setBoolean9010, DataType.BOOLEAN_90_10);
         generator.setData(AllDataTypes::setBoolean1090, DataType.BOOLEAN_10_90);
+        generator.setData(AllDataTypes::setLast10Years, DataType.DATE_LAST_10_YEARS);
+        generator.setData(AllDataTypes::setLastYear, DataType.DATE_LAST_1_YEAR);
+        generator.setData(AllDataTypes::setLast30Days, DataType.DATE_LAST_30_DAYS);
+        generator.setData(AllDataTypes::setLast7Days, DataType.DATE_LAST_7_DAYS);
 
         AllDataTypes allDataTypes = generator.createBean(2015781843);
         LoggerFactory.getLogger(getClass()).info("Created entity {}", allDataTypes);
@@ -378,6 +418,11 @@ public class ExampleDataGeneratorTest {
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getBookTitle()));
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(
                 DataType.BOOK_IMAGE_BACKGROUND.getValue(new Random(), 2015781843).replace("&", "&amp;")));
+
+        Assert.assertTrue(ChronoUnit.DAYS.between(LocalDate.now(), allDataTypes.getLast10Years()) <= 3650);
+        Assert.assertTrue(ChronoUnit.DAYS.between(LocalDate.now(), allDataTypes.getLastYear()) <= 365);
+        Assert.assertTrue(ChronoUnit.DAYS.between(LocalDate.now(), allDataTypes.getLast30Days()) <= 30);
+        Assert.assertTrue(ChronoUnit.DAYS.between(LocalDate.now(), allDataTypes.getLast7Days()) <= 7);
     }
 
     @Test

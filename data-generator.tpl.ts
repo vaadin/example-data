@@ -45,6 +45,10 @@ export enum DataType {
   Boolean_50_50 = 'BOOLEAN_50_50',
   Boolean_90_10 = 'BOOLEAN_90_10',
   Boolean_10_90 = 'BOOLEAN_10_90',
+  DateLast10Years = 'DATE_LAST_10_YEARS',
+  DateLast1Year = 'DATE_LAST_1_YEAR',
+  DateLast30Days = 'DATE_LAST_30_DAYS',
+  DateLast7days = 'DATE_LAST_7_DAYS',
 }
 
 export interface ValueCreator {
@@ -73,6 +77,13 @@ const combine = (seed: number, sameSeed: boolean, seedOffset: number, types: Dat
     }
   }
   return values.join(' ');
+};
+
+const dateMaxDaysBack = (seed: number, maxDaysBack: number): string => {
+  setSeed(seed);
+  const daysBack = chance.integer({ min: 0, max: maxDaysBack });
+  const date: Date = new Date(new Date().getTime() - daysBack * 24 * 3600 * 1000);
+  return date.toISOString().split('T')[0];
 };
 
 export const DataGenerators: { [key in string]: ValueCreator } = {
@@ -131,7 +142,7 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
     },
   },
   [DataType.DateOfBirth]: {
-    createValue: (seed) => {
+    createValue: (seed): string => {
       setSeed(seed);
       return chance.birthday().toISOString().split('T')[0];
     },
@@ -265,6 +276,26 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
     createValue: (seed) => {
       setSeed(seed);
       return chance.bool({ likelihood: 10 });
+    },
+  },
+  [DataType.DateLast10Years]: {
+    createValue: (seed) => {
+      return dateMaxDaysBack(seed, 3650);
+    },
+  },
+  [DataType.DateLast1Year]: {
+    createValue: (seed) => {
+      return dateMaxDaysBack(seed, 365);
+    },
+  },
+  [DataType.DateLast30Days]: {
+    createValue: (seed) => {
+      return dateMaxDaysBack(seed, 30);
+    },
+  },
+  [DataType.DateLast7days]: {
+    createValue: (seed) => {
+      return dateMaxDaysBack(seed, 7);
     },
   },
 
