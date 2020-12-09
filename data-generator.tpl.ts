@@ -1,55 +1,9 @@
+import { DataType } from './data-generator-types';
 const chanceImport = require('chance');
 const cdigit = require('cdigit');
 const options: any = {};
 
 /* Generator: randomOptions */
-
-export enum DataType {
-  ID = 'ID',
-  FirstName = 'FIRST_NAME',
-  LastName = 'LAST_NAME',
-  FullName = 'FULL_NAME',
-  Email = 'EMAIL',
-  Domain = 'DOMAIN',
-  Occupation = 'OCCUPATION',
-  CompanyName = 'COMPANY_NAME',
-  IBAN = 'IBAN',
-  TransactionStatus = 'TRANSACTION_STATUS',
-  ProfilePictureURL = 'PROFILE_PICTURE_URL',
-  AmountOfMoney = 'AMOUNT_OF_MONEY',
-  DateOfBirth = 'DATE_OF_BIRTH',
-  PhoneNumber = 'PHONE_NUMBER',
-  City = 'CITY',
-  State = 'STATE',
-  Country = 'COUNTRY',
-  ZipCode = 'ZIP_CODE',
-  Address = 'ADDRESS',
-  BookTitle = 'BOOK_TITLE',
-  BookTitlePrefix = 'BOOK_TITLE_PREFIX',
-  BookTitleSuffix = 'BOOK_TITLE_SUFFIX',
-  BookImageUrl = 'BOOK_IMAGE_URL',
-  BookImageBackground = 'BOOK_IMAGE_BACKGROUND',
-  BookGenre = 'BOOK_GENRE',
-  Price = 'PRICE',
-  Word = 'WORD',
-  TwoWords = 'TWO_WORDS',
-  Sentence = 'SENTENCE',
-  Ean13 = 'EAN13',
-  NumberUpTo10 = 'NUMBER_UP_TO_10',
-  NumberUpTo100 = 'NUMBER_UP_TO_100',
-  NumberUpTo1000 = 'NUMBER_UP_TO_1000',
-  NumberUpTo10000 = 'NUMBER_UP_TO_10000',
-  FoodProductName = 'FOOD_PRODUCT_NAME',
-  FoodProductImage = 'FOOD_PRODUCT_IMAGE',
-  FoodProductEan = 'FOOD_PRODUCT_EAN',
-  Boolean_50_50 = 'BOOLEAN_50_50',
-  Boolean_90_10 = 'BOOLEAN_90_10',
-  Boolean_10_90 = 'BOOLEAN_10_90',
-  DateLast10Years = 'DATE_LAST_10_YEARS',
-  DateLast1Year = 'DATE_LAST_1_YEAR',
-  DateLast30Days = 'DATE_LAST_30_DAYS',
-  DateLast7days = 'DATE_LAST_7_DAYS',
-}
 
 export interface ValueCreator {
   createValue(seed: number): any;
