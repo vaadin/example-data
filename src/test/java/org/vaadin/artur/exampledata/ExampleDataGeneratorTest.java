@@ -2,8 +2,8 @@ package org.vaadin.artur.exampledata;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
@@ -34,6 +34,7 @@ public class ExampleDataGeneratorTest {
         private String bookTitle, bookCoverImage;
         private boolean boolean5050, boolean9010, boolean1090;
         private LocalDate last10Years, lastYear, last30Days, last7Days;
+        private LocalTime randomTime, randomHours;
 
         public Integer getId() {
             return id;
@@ -319,6 +320,22 @@ public class ExampleDataGeneratorTest {
             this.last7Days = last7Days;
         }
 
+        public LocalTime getRandomHours() {
+            return randomHours;
+        }
+
+        public void setRandomHours(LocalTime randomHours) {
+            this.randomHours = randomHours;
+        }
+
+        public LocalTime getRandomTime() {
+            return randomTime;
+        }
+
+        public void setRandomTime(LocalTime randomTime) {
+            this.randomTime = randomTime;
+        }
+
         @Override
         public String toString() {
             return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
@@ -331,8 +348,9 @@ public class ExampleDataGeneratorTest {
                     + ", lastName=" + lastName + ", lastYear=" + lastYear + ", lessThan10=" + lessThan10
                     + ", lessThan100=" + lessThan100 + ", lessThan1000=" + lessThan1000 + ", lessThan10000="
                     + lessThan10000 + ", occupation=" + occupation + ", phoneNumber=" + phoneNumber + ", price=" + price
-                    + ", profilePictureURL=" + profilePictureURL + ", sentence=" + sentence + ", tranasctionStatus="
-                    + tranasctionStatus + ", twoWords=" + twoWords + ", word=" + word + "]";
+                    + ", profilePictureURL=" + profilePictureURL + ", randomHours=" + randomHours + ", randomTime="
+                    + randomTime + ", sentence=" + sentence + ", tranasctionStatus=" + tranasctionStatus + ", twoWords="
+                    + twoWords + ", word=" + word + "]";
         }
 
     }
@@ -375,6 +393,8 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setLastYear, DataType.DATE_LAST_1_YEAR);
         generator.setData(AllDataTypes::setLast30Days, DataType.DATE_LAST_30_DAYS);
         generator.setData(AllDataTypes::setLast7Days, DataType.DATE_LAST_7_DAYS);
+        generator.setData(AllDataTypes::setRandomTime, DataType.TIME_RANDOM);
+        generator.setData(AllDataTypes::setRandomHours, DataType.TIME_HOURS);
 
         AllDataTypes allDataTypes = generator.createBean(2015781843);
         LoggerFactory.getLogger(getClass()).info("Created entity {}", allDataTypes);
@@ -390,7 +410,7 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals("https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=300",
                 allDataTypes.getProfilePictureURL());
         Assert.assertEquals(52945, allDataTypes.getAmountOfMoney());
-        Assert.assertEquals(LocalDate.of(1974, 4, 13), allDataTypes.getDateOfBirth());
+        Assert.assertEquals(LocalDate.of(1975, 4, 13), allDataTypes.getDateOfBirth());
         Assert.assertEquals("(660) 856-4069", allDataTypes.getPhoneNumber());
         Assert.assertEquals("Nell Testi", allDataTypes.getFullName());
         Assert.assertEquals(262.82, allDataTypes.getPrice(), 0);
@@ -423,6 +443,9 @@ public class ExampleDataGeneratorTest {
         Assert.assertTrue(ChronoUnit.DAYS.between(LocalDate.now(), allDataTypes.getLastYear()) <= 365);
         Assert.assertTrue(ChronoUnit.DAYS.between(LocalDate.now(), allDataTypes.getLast30Days()) <= 30);
         Assert.assertTrue(ChronoUnit.DAYS.between(LocalDate.now(), allDataTypes.getLast7Days()) <= 7);
+
+        Assert.assertEquals(LocalTime.of(12, 31, 31), allDataTypes.getRandomTime());
+        Assert.assertEquals(LocalTime.of(12, 0, 0), allDataTypes.getRandomHours());
     }
 
     @Test
