@@ -15,7 +15,7 @@ branches:
 
 before_install:
   - cp settings.xml ~/.m2/
-  - nvm install 12
+  - nvm install 14
 
 install:
   - npm install
