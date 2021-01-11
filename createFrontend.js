@@ -19,7 +19,7 @@ fs.readdirSync(inputFilePath).forEach((file) => {
 
   // [DataType.CompanyName]: { createValue: () => random(options.companyName) },
   if (textFile && optionName != 'FoodProducts') {
-    generatorRandomOptionGenerators += `  [DataType.${optionName}]: { createValue: (seed) => random(options.${optionName}, seed)},\n`;
+    generatorRandomOptionGenerators += `  [DataType.${optionName}]: { createValue: (seed, _refTime) => random(options.${optionName}, seed)},\n`;
   }
 });
 

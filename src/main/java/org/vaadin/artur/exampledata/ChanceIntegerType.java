@@ -1,5 +1,6 @@
 package org.vaadin.artur.exampledata;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 
 public class ChanceIntegerType extends DataType<Integer> {
@@ -17,7 +18,7 @@ public class ChanceIntegerType extends DataType<Integer> {
     }
 
     @Override
-    public Integer getValue(Random random, int seed) {
+    public Integer getValue(Random random, int seed, LocalDateTime referenceTime) {
         return NodeScriptInterface.getChanceInteger(seed, this.type, this.options);
     }
 

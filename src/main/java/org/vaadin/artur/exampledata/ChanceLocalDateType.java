@@ -1,6 +1,7 @@
 package org.vaadin.artur.exampledata;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 public class ChanceLocalDateType extends DataType<LocalDate> {
@@ -18,7 +19,7 @@ public class ChanceLocalDateType extends DataType<LocalDate> {
     }
 
     @Override
-    public LocalDate getValue(Random random, int seed) {
+    public LocalDate getValue(Random random, int seed, LocalDateTime referenceTime) {
         random.setSeed(seed);
         return NodeScriptInterface.getChanceLocalDate(random.nextInt(), this.type, this.options);
     }

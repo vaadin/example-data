@@ -1,5 +1,6 @@
 package org.vaadin.artur.exampledata;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,11 +26,11 @@ public class CombinedStringGenerator extends DataType<String> {
     }
 
     @Override
-    public String getValue(Random random, int seed) {
+    public String getValue(Random random, int seed, LocalDateTime referenceTime) {
         seed += seedOffset;
         Builder<String> values = Stream.builder();
         for (DataType<String> generator : generators) {
-            String value = generator.getValue(random, seed);
+            String value = generator.getValue(random, seed, referenceTime);
             values.add(value);
             if (!sameSeed) {
                 seed++;
