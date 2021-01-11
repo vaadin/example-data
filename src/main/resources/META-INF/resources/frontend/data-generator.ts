@@ -1705,7 +1705,16 @@ const dateMaxDaysBack = (seed: number, maxDaysBack: number): string => {
   const date: Date = new Date(new Date().getTime() - daysBack * 24 * 3600 * 1000);
   return date.toISOString().split('T')[0];
 };
+const format2Digits = (nr: number): string => {
+  return nr < 10 ? '0' + nr : '' + nr;
+};
+const formatTime = (hour: number, minute: number, second: number): string => {
+  const hourString = format2Digits(hour);
+  const minuteString = format2Digits(minute);
+  const secondString = format2Digits(second);
 
+  return `${hourString}:${minuteString}:${secondString}`;
+};
 export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.ID]: { createValue: (_seed) => idSequence++ },
   [DataType.FullName]: {
@@ -1916,6 +1925,24 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.DateLast7days]: {
     createValue: (seed) => {
       return dateMaxDaysBack(seed, 7);
+    },
+  },
+  [DataType.TimeRandom]: {
+    createValue: (seed) => {
+      setSeed(seed);
+      const hour = chance.integer({ min: 0, max: 24 });
+      const minute = chance.integer({ min: 0, max: 59 });
+      const second = chance.integer({ min: 0, max: 59 });
+      return formatTime(hour, minute, second);
+    },
+  },
+  [DataType.TimeHours]: {
+    createValue: (seed) => {
+      setSeed(seed);
+      const hour = chance.integer({ min: 0, max: 24 });
+      const minute = 0;
+      const second = 0;
+      return formatTime(hour, minute, second);
     },
   },
 

@@ -1,6 +1,7 @@
 package org.vaadin.artur.exampledata;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Random;
 
 public abstract class DataType<F> {
@@ -24,6 +25,8 @@ public abstract class DataType<F> {
     public static final DataType<LocalDate> DATE_LAST_1_YEAR = new RandomDate(365);
     public static final DataType<LocalDate> DATE_LAST_30_DAYS = new RandomDate(30);
     public static final DataType<LocalDate> DATE_LAST_7_DAYS = new RandomDate(7);
+    public static final DataType<LocalTime> TIME_RANDOM = new RandomTime(false);
+    public static final DataType<LocalTime> TIME_HOURS = new RandomTime(true);
     public static final DataType<String> PHONE_NUMBER = new ChanceStringType("phone");
     public static final DataType<String> CITY = new ChanceStringType("city");
     public static final DataType<String> STATE = new ChanceStringType("state", "{ full: true }");
