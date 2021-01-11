@@ -1,5 +1,6 @@
 package org.vaadin.artur.exampledata;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,9 +18,16 @@ public class ExampleDataGenerator<T> {
     private Class<T> type;
     private Random random = new Random();
     private Map<BiConsumer<T, ?>, DataType<?>> setters = new LinkedHashMap<>();
+    private LocalDateTime referenceTime;
 
+    @Deprecated
     public ExampleDataGenerator(Class<T> type) {
+        this(type, LocalDateTime.now());
+    }
+
+    public ExampleDataGenerator(Class<T> type, LocalDateTime referenceTime) {
         this.type = type;
+        this.referenceTime = referenceTime;
     }
 
     public <F> void setData(BiConsumer<T, F> setter, DataType<F> dataType) {
@@ -41,7 +49,7 @@ public class ExampleDataGenerator<T> {
     }
 
     private <F> void assignValue(T bean, BiConsumer<T, F> setter, DataType<F> dataType, int seed) {
-        setter.accept(bean, dataType.getValue(random, seed));
+        setter.accept(bean, dataType.getValue(random, seed, referenceTime));
     }
 
     public List<T> create(int count, int seed) {

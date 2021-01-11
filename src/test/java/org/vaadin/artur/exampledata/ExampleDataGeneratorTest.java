@@ -3,8 +3,8 @@ package org.vaadin.artur.exampledata;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Random;
 
@@ -357,7 +357,8 @@ public class ExampleDataGeneratorTest {
 
     @Test
     public void allTypesEntity() throws UnsupportedEncodingException {
-        ExampleDataGenerator<AllDataTypes> generator = new ExampleDataGenerator<>(AllDataTypes.class);
+        LocalDateTime refTime = LocalDateTime.of(2020, 8, 12, 14, 42, 23);
+        ExampleDataGenerator<AllDataTypes> generator = new ExampleDataGenerator<>(AllDataTypes.class, refTime);
         generator.setData(AllDataTypes::setId, DataType.ID);
         generator.setData(AllDataTypes::setFirstName, DataType.FIRST_NAME);
         generator.setData(AllDataTypes::setLastName, DataType.LAST_NAME);
@@ -410,7 +411,7 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals("https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=300",
                 allDataTypes.getProfilePictureURL());
         Assert.assertEquals(52945, allDataTypes.getAmountOfMoney());
-        Assert.assertEquals(LocalDate.of(1975, 4, 13), allDataTypes.getDateOfBirth());
+        Assert.assertEquals(LocalDate.of(1968, 3, 7), allDataTypes.getDateOfBirth());
         Assert.assertEquals("(660) 856-4069", allDataTypes.getPhoneNumber());
         Assert.assertEquals("Nell Testi", allDataTypes.getFullName());
         Assert.assertEquals(262.82, allDataTypes.getPrice(), 0);
@@ -436,13 +437,13 @@ public class ExampleDataGeneratorTest {
                 StandardCharsets.UTF_8);
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getFullName()));
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getBookTitle()));
-        MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(
-                DataType.BOOK_IMAGE_BACKGROUND.getValue(new Random(), 2015781843).replace("&", "&amp;")));
+        MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(DataType.BOOK_IMAGE_BACKGROUND
+                .getValue(new Random(), 2015781843, LocalDateTime.now()).replace("&", "&amp;")));
 
-        Assert.assertTrue(ChronoUnit.DAYS.between(LocalDate.now(), allDataTypes.getLast10Years()) <= 3650);
-        Assert.assertTrue(ChronoUnit.DAYS.between(LocalDate.now(), allDataTypes.getLastYear()) <= 365);
-        Assert.assertTrue(ChronoUnit.DAYS.between(LocalDate.now(), allDataTypes.getLast30Days()) <= 30);
-        Assert.assertTrue(ChronoUnit.DAYS.between(LocalDate.now(), allDataTypes.getLast7Days()) <= 7);
+        Assert.assertEquals(LocalDate.of(2015, 5, 16), allDataTypes.getLast10Years());
+        Assert.assertEquals(LocalDate.of(2020, 2, 2), allDataTypes.getLastYear());
+        Assert.assertEquals(LocalDate.of(2020, 7, 27), allDataTypes.getLast30Days());
+        Assert.assertEquals(LocalDate.of(2020, 8, 8), allDataTypes.getLast7Days());
 
         Assert.assertEquals(LocalTime.of(12, 31, 31), allDataTypes.getRandomTime());
         Assert.assertEquals(LocalTime.of(12, 0, 0), allDataTypes.getRandomHours());

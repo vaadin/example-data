@@ -4,3 +4,6 @@ target/
 # IntelliJ IDEA
 .idea/
 *.iml
+
+node_modules
+*~

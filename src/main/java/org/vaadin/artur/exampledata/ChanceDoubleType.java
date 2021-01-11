@@ -1,5 +1,6 @@
 package org.vaadin.artur.exampledata;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 
 public class ChanceDoubleType extends DataType<Double> {
@@ -17,7 +18,7 @@ public class ChanceDoubleType extends DataType<Double> {
     }
 
     @Override
-    public Double getValue(Random random, int seed) {
+    public Double getValue(Random random, int seed, LocalDateTime referenceTime) {
         return NodeScriptInterface.getChanceDouble(seed, this.type, this.options);
     }
 

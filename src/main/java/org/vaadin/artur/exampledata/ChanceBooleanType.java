@@ -1,5 +1,6 @@
 package org.vaadin.artur.exampledata;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 
 public class ChanceBooleanType extends DataType<Boolean> {
@@ -17,7 +18,7 @@ public class ChanceBooleanType extends DataType<Boolean> {
     }
 
     @Override
-    public Boolean getValue(Random random, int seed) {
+    public Boolean getValue(Random random, int seed, LocalDateTime referenceTime) {
         return NodeScriptInterface.getChanceBoolean(seed, this.type, this.options);
     }
 
