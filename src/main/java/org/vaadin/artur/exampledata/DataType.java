@@ -21,11 +21,15 @@ public abstract class DataType<F> {
     public static final DataType<Integer> AMOUNT_OF_MONEY = new ChanceIntegerType("integer",
             "{min: 1000, max: 100000}");
     public static final DataType<Double> PRICE = new ChanceDoubleType("floating", "{min: 1, max: 500, fixed: 2}");
-    public static final DataType<LocalDate> DATE_OF_BIRTH = new RandomDate(365 * 100);
-    public static final DataType<LocalDate> DATE_LAST_10_YEARS = new RandomDate(365 * 10);
-    public static final DataType<LocalDate> DATE_LAST_1_YEAR = new RandomDate(365);
-    public static final DataType<LocalDate> DATE_LAST_30_DAYS = new RandomDate(30);
-    public static final DataType<LocalDate> DATE_LAST_7_DAYS = new RandomDate(7);
+    public static final DataType<LocalDate> DATE_OF_BIRTH = new RandomPastDate(365 * 100);
+    public static final DataType<LocalDate> DATE_LAST_10_YEARS = new RandomPastDate(365 * 10);
+    public static final DataType<LocalDate> DATE_LAST_1_YEAR = new RandomPastDate(365);
+    public static final DataType<LocalDate> DATE_LAST_30_DAYS = new RandomPastDate(30);
+    public static final DataType<LocalDate> DATE_LAST_7_DAYS = new RandomPastDate(7);
+    public static final DataType<LocalDate> DATE_NEXT_10_YEARS = new RandomFutureDate(365 * 10);
+    public static final DataType<LocalDate> DATE_NEXT_1_YEAR = new RandomFutureDate(365);
+    public static final DataType<LocalDate> DATE_NEXT_30_DAYS = new RandomFutureDate(30);
+    public static final DataType<LocalDate> DATE_NEXT_7_DAYS = new RandomFutureDate(7);
     public static final DataType<LocalTime> TIME_RANDOM = new RandomTime(false);
     public static final DataType<LocalTime> TIME_HOURS = new RandomTime(true);
     public static final DataType<String> PHONE_NUMBER = new ChanceStringType("phone");

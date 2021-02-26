@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
 
-public class RandomDate extends DataType<LocalDate> {
+public class RandomPastDate extends DataType<LocalDate> {
 
     private int maxDaysBack;
 
-    public RandomDate(int maxDaysBack) {
+    public RandomPastDate(int maxDaysBack) {
         this.maxDaysBack = maxDaysBack;
     }
 

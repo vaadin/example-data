@@ -34,6 +34,7 @@ public class ExampleDataGeneratorTest {
         private String bookTitle, bookCoverImage;
         private boolean boolean5050, boolean9010, boolean1090;
         private LocalDate last10Years, lastYear, last30Days, last7Days;
+        private LocalDate next10Years, nextYear, next30Days, next7Days;
         private LocalTime randomTime, randomHours;
 
         public Integer getId() {
@@ -320,6 +321,38 @@ public class ExampleDataGeneratorTest {
             this.last7Days = last7Days;
         }
 
+        public LocalDate getNext10Years() {
+            return next10Years;
+        }
+
+        public void setNext10Years(LocalDate next10Years) {
+            this.next10Years = next10Years;
+        }
+
+        public LocalDate getNextYear() {
+            return nextYear;
+        }
+
+        public void setNextYear(LocalDate nextYear) {
+            this.nextYear = nextYear;
+        }
+
+        public LocalDate getNext30Days() {
+            return next30Days;
+        }
+
+        public void setNext30Days(LocalDate next30Days) {
+            this.next30Days = next30Days;
+        }
+
+        public LocalDate getNext7Days() {
+            return next7Days;
+        }
+
+        public void setNext7Days(LocalDate next7Days) {
+            this.next7Days = next7Days;
+        }
+
         public LocalTime getRandomHours() {
             return randomHours;
         }
@@ -347,10 +380,11 @@ public class ExampleDataGeneratorTest {
                     + id + ", last10Years=" + last10Years + ", last30Days=" + last30Days + ", last7Days=" + last7Days
                     + ", lastName=" + lastName + ", lastYear=" + lastYear + ", lessThan10=" + lessThan10
                     + ", lessThan100=" + lessThan100 + ", lessThan1000=" + lessThan1000 + ", lessThan10000="
-                    + lessThan10000 + ", occupation=" + occupation + ", phoneNumber=" + phoneNumber + ", price=" + price
-                    + ", profilePictureURL=" + profilePictureURL + ", randomHours=" + randomHours + ", randomTime="
-                    + randomTime + ", sentence=" + sentence + ", tranasctionStatus=" + tranasctionStatus + ", twoWords="
-                    + twoWords + ", word=" + word + "]";
+                    + lessThan10000 + ", next10Years=" + next10Years + ", next30Days=" + next30Days + ", next7Days="
+                    + next7Days + ", nextYear=" + nextYear + ", occupation=" + occupation + ", phoneNumber="
+                    + phoneNumber + ", price=" + price + ", profilePictureURL=" + profilePictureURL + ", randomHours="
+                    + randomHours + ", randomTime=" + randomTime + ", sentence=" + sentence + ", tranasctionStatus="
+                    + tranasctionStatus + ", twoWords=" + twoWords + ", word=" + word + "]";
         }
 
     }
@@ -394,6 +428,10 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setLastYear, DataType.DATE_LAST_1_YEAR);
         generator.setData(AllDataTypes::setLast30Days, DataType.DATE_LAST_30_DAYS);
         generator.setData(AllDataTypes::setLast7Days, DataType.DATE_LAST_7_DAYS);
+        generator.setData(AllDataTypes::setNext10Years, DataType.DATE_NEXT_10_YEARS);
+        generator.setData(AllDataTypes::setNextYear, DataType.DATE_NEXT_1_YEAR);
+        generator.setData(AllDataTypes::setNext30Days, DataType.DATE_NEXT_30_DAYS);
+        generator.setData(AllDataTypes::setNext7Days, DataType.DATE_NEXT_7_DAYS);
         generator.setData(AllDataTypes::setRandomTime, DataType.TIME_RANDOM);
         generator.setData(AllDataTypes::setRandomHours, DataType.TIME_HOURS);
 
@@ -444,6 +482,11 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals(LocalDate.of(2020, 2, 2), allDataTypes.getLastYear());
         Assert.assertEquals(LocalDate.of(2020, 7, 27), allDataTypes.getLast30Days());
         Assert.assertEquals(LocalDate.of(2020, 8, 8), allDataTypes.getLast7Days());
+
+        Assert.assertEquals(LocalDate.of(2025, 11, 9), allDataTypes.getNext10Years());
+        Assert.assertEquals(LocalDate.of(2021, 2, 20), allDataTypes.getNextYear());
+        Assert.assertEquals(LocalDate.of(2020, 8, 28), allDataTypes.getNext30Days());
+        Assert.assertEquals(LocalDate.of(2020, 8, 16), allDataTypes.getNext7Days());
 
         Assert.assertEquals(LocalTime.of(12, 31, 31), allDataTypes.getRandomTime());
         Assert.assertEquals(LocalTime.of(12, 0, 0), allDataTypes.getRandomHours());
