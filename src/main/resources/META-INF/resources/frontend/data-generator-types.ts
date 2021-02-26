@@ -43,6 +43,10 @@ export enum DataType {
   DateLast1Year = 'DATE_LAST_1_YEAR',
   DateLast30Days = 'DATE_LAST_30_DAYS',
   DateLast7days = 'DATE_LAST_7_DAYS',
+  DateNext10Years = 'DATE_NEXT_10_YEARS',
+  DateNext1Year = 'DATE_NEXT_1_YEAR',
+  DateNext30Days = 'DATE_NEXT_30_DAYS',
+  DateNext7days = 'DATE_NEXT_7_DAYS',
   TimeRandom = 'TIME_RANDOM',
   TimeHours = 'TIME_HOURS',
 }

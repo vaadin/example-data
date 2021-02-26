@@ -39,6 +39,12 @@ const dateMaxDaysBack = (seed: number, refTime: number, maxDaysBack: number): st
   const date: Date = new Date(refTime - daysBack * 24 * 3600 * 1000);
   return date.toISOString().split('T')[0];
 };
+const dateMaxDaysForward = (seed: number, refTime: number, maxDaysForward: number): string => {
+  setSeed(seed);
+  const daysForward = chance.integer({ min: 0, max: maxDaysForward });
+  const date: Date = new Date(refTime + daysForward * 24 * 3600 * 1000);
+  return date.toISOString().split('T')[0];
+};
 const format2Digits = (nr: number): string => {
   return nr < 10 ? '0' + nr : '' + nr;
 };
@@ -259,6 +265,26 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.DateLast7days]: {
     createValue: (seed, refTime) => {
       return dateMaxDaysBack(seed, refTime, 7);
+    },
+  },
+  [DataType.DateNext10Years]: {
+    createValue: (seed, refTime) => {
+      return dateMaxDaysForward(seed, refTime, 365 * 10);
+    },
+  },
+  [DataType.DateNext1Year]: {
+    createValue: (seed, refTime) => {
+      return dateMaxDaysForward(seed, refTime, 365);
+    },
+  },
+  [DataType.DateNext30Days]: {
+    createValue: (seed, refTime) => {
+      return dateMaxDaysForward(seed, refTime, 30);
+    },
+  },
+  [DataType.DateNext7days]: {
+    createValue: (seed, refTime) => {
+      return dateMaxDaysForward(seed, refTime, 7);
     },
   },
   [DataType.TimeRandom]: {
