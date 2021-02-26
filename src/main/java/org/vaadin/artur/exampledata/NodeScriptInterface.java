@@ -13,7 +13,10 @@ public class NodeScriptInterface {
     private static NodeUtil node = new NodeUtil();
 
     private static void init() throws InterruptedException, IOException {
-        waitForFile("node_modules/chance", 120);
+        // Wait until we can do "const c = require('chance')".
+        // For some reason it is not enough for chance.js to be in place
+        waitForFile("node_modules/chance/chance.js", 120);
+        waitForFile("node_modules/.bin", 120);
         node.initialize("const c = require('chance'); const cdigit = require('cdigit');");
     }
 
@@ -21,7 +24,7 @@ public class NodeScriptInterface {
         File f = new File(fileNameInProject);
         if (!f.exists()) {
             LoggerFactory.getLogger(NodeScriptInterface.class)
-                    .info("Waiting for " + fileNameInProject + " to become available");
+                    .debug("Waiting for " + fileNameInProject + " to become available");
         }
         while (!f.exists() && maxTime-- > 0) {
             try {
