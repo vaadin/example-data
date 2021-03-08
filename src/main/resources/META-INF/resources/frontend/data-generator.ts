@@ -1,4 +1,5 @@
 import { DataType } from './data-generator-types';
+import { v4 as uuidv4 } from 'uuid';
 const chanceImport = require('chance');
 const cdigit = require('cdigit');
 const options: any = {};
@@ -1723,6 +1724,7 @@ const formatTime = (hour: number, minute: number, second: number): string => {
 };
 export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.ID]: { createValue: (_seed, _refTime) => idSequence++ },
+  [DataType.UUID]: { createValue: (_seed, _refTime) => uuidv4() },
   [DataType.FullName]: {
     createValue: (seed, refTime) => combine(seed, refTime, true, 0, [DataType.FirstName, DataType.LastName]),
   },

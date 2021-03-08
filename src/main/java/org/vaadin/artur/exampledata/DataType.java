@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Random;
+import java.util.UUID;
 
 public abstract class DataType<F> {
 
     public static final DataType<Integer> ID = new IdDataType();
+    public static final DataType<UUID> UUID = new UUIDDataType();
     public static final DataType<String> FIRST_NAME = new ChanceStringType("first");
     public static final DataType<String> LAST_NAME = new ChanceStringType("last");
     public static final DataType<String> FULL_NAME = new CombinedStringGenerator(FIRST_NAME, LAST_NAME);

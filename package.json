@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "cdigit": "^2.5.6",
-    "chance": "^1.1.7"
+    "chance": "^1.1.7",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -36,6 +37,7 @@ public class ExampleDataGeneratorTest {
         private LocalDate last10Years, lastYear, last30Days, last7Days;
         private LocalDate next10Years, nextYear, next30Days, next7Days;
         private LocalTime randomTime, randomHours;
+        private UUID uuid;
 
         public Integer getId() {
             return id;
@@ -369,6 +371,14 @@ public class ExampleDataGeneratorTest {
             this.randomTime = randomTime;
         }
 
+        public UUID getUuid() {
+            return uuid;
+        }
+
+        public void setUuid(UUID uuid) {
+            this.uuid = uuid;
+        }
+
         @Override
         public String toString() {
             return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
@@ -384,7 +394,7 @@ public class ExampleDataGeneratorTest {
                     + next7Days + ", nextYear=" + nextYear + ", occupation=" + occupation + ", phoneNumber="
                     + phoneNumber + ", price=" + price + ", profilePictureURL=" + profilePictureURL + ", randomHours="
                     + randomHours + ", randomTime=" + randomTime + ", sentence=" + sentence + ", tranasctionStatus="
-                    + tranasctionStatus + ", twoWords=" + twoWords + ", word=" + word + "]";
+                    + tranasctionStatus + ", twoWords=" + twoWords + ", uuid=" + uuid + ", word=" + word + "]";
         }
 
     }
@@ -434,6 +444,7 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setNext7Days, DataType.DATE_NEXT_7_DAYS);
         generator.setData(AllDataTypes::setRandomTime, DataType.TIME_RANDOM);
         generator.setData(AllDataTypes::setRandomHours, DataType.TIME_HOURS);
+        generator.setData(AllDataTypes::setUuid, DataType.UUID);
 
         AllDataTypes allDataTypes = generator.createBean(2015781843);
         LoggerFactory.getLogger(getClass()).info("Created entity {}", allDataTypes);
@@ -490,6 +501,8 @@ public class ExampleDataGeneratorTest {
 
         Assert.assertEquals(LocalTime.of(12, 31, 31), allDataTypes.getRandomTime());
         Assert.assertEquals(LocalTime.of(12, 0, 0), allDataTypes.getRandomHours());
+        Assert.assertTrue(allDataTypes.getUuid().toString()
+                .matches("([a-z0-9]{8})-([a-z0-9]{4})-([a-z0-9]{4})-([a-z0-9]{4})-([a-z0-9]{12})"));
     }
 
     @Test
