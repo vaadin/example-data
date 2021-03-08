@@ -23,7 +23,8 @@ public class NodeScriptInterface {
         File chanceTempFile = File.createTempFile("exampleutil-bundle", "js");
         chanceTempFile.deleteOnExit();
         try (FileOutputStream out = new FileOutputStream(chanceTempFile)) {
-            IOUtils.copyLarge(NodeScriptInterface.class.getResourceAsStream("/bundle.js"), out);
+            IOUtils.copyLarge(
+                    NodeScriptInterface.class.getResourceAsStream("/META-INF/frontend/example-data-bundle.js"), out);
         }
         String cmd = String.format("const all = require('%s'); const c = all.chance; const cdigit = all.cdigit;",
                 chanceTempFile.getAbsolutePath());

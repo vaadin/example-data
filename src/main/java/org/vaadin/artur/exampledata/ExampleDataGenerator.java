@@ -9,10 +9,6 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.function.BiConsumer;
 
-import com.vaadin.flow.component.dependency.NpmPackage;
-
-@NpmPackage(value = "chance", version = "1.1.7")
-@NpmPackage(value = "cdigit", version = "2.5.6")
 public class ExampleDataGenerator<T> {
 
     private Class<T> type;

@@ -1,7 +1,6 @@
 import { DataType } from './data-generator-types';
-import { v4 as uuidv4 } from 'uuid';
-const chanceImport = require('chance');
-const cdigit = require('cdigit');
+import { uuidv4, chance as chanceImport, cdigit } from './example-data-bundle';
+
 const options: any = {};
 
 options['BookGenre'] = [
