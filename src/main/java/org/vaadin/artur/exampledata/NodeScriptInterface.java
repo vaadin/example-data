@@ -16,16 +16,13 @@ public class NodeScriptInterface {
     private static NodeUtil node = new NodeUtil();
 
     private static void init() throws InterruptedException, IOException {
-        File chanceTempFile = File.createTempFile("exampleutil-chance", "js");
-        File cdigitTempFile = File.createTempFile("exampleutil-cdigit", "js");
+        File chanceTempFile = File.createTempFile("exampleutil-bundle", "js");
+        chanceTempFile.deleteOnExit();
         try (FileOutputStream out = new FileOutputStream(chanceTempFile)) {
-            IOUtils.copyLarge(NodeScriptInterface.class.getResourceAsStream("/chance.js"), out);
+            IOUtils.copyLarge(NodeScriptInterface.class.getResourceAsStream("/bundle.js"), out);
         }
-        try (FileOutputStream out = new FileOutputStream(cdigitTempFile)) {
-            IOUtils.copyLarge(NodeScriptInterface.class.getResourceAsStream("/cdigit.js"), out);
-        }
-        String cmd = String.format("const c = require('%s'); const cdigit = require('%s');",
-                chanceTempFile.getAbsolutePath(), cdigitTempFile.getAbsolutePath());
+        String cmd = String.format("const all = require('%s'); const c = all.chance; const cdigit = all.cdigit;",
+                chanceTempFile.getAbsolutePath());
         node.initialize(cmd);
     }
 
@@ -72,8 +69,8 @@ public class NodeScriptInterface {
     public static String getEan13(int seed) {
         try {
             init();
-            String result = node.runScript(
-                    "cdigit.default.gtin.generate(c.Chance(" + seed + ").integer({min: 1, max: 999999999999}))");
+            String result = node
+                    .runScript("cdigit.gtin.generate(c.Chance(" + seed + ").integer({min: 1, max: 999999999999}))");
             return result.substring(1, result.length() - 1);
         } catch (InterruptedException | IOException e) {
             LoggerFactory.getLogger(NodeScriptInterface.class).error("Unable to generate ean 13", e);
