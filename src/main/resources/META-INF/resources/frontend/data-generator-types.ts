@@ -1,5 +1,6 @@
 export enum DataType {
   ID = 'ID',
+  UUID = 'UUID',
   FirstName = 'FIRST_NAME',
   LastName = 'LAST_NAME',
   FullName = 'FULL_NAME',

@@ -1,4 +1,5 @@
 import { DataType } from './data-generator-types';
+// @ts-ignore
 import { uuidv4, chance as chanceImport, cdigit } from './example-data-bundle';
 
 const options: any = {};
