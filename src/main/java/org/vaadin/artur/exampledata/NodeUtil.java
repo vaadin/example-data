@@ -1,6 +1,7 @@
 package org.vaadin.artur.exampledata;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +33,18 @@ public class NodeUtil {
             ProcessBuilder builder = FrontendUtils.createProcessBuilder(command);
             nodeProcess = builder.start();
             nodeWriter = new PrintWriter(nodeProcess.getOutputStream(), true);
-            nodeScanner = new Scanner(nodeProcess.getInputStream(), "UTF-8");
+            InputStreamReader reader = new InputStreamReader(nodeProcess.getInputStream(), "UTF-8");
+            boolean skipToken = true;
+            if (reader.read() == '>') {
+                // Node 10, prints only "> " on startup
+                reader.read();
+                skipToken = false;
+            }
+            nodeScanner = new Scanner(reader);
             nodeScanner.useDelimiter("> ");
-            nodeScanner.next();
+            if (skipToken) {
+                nodeScanner.next();
+            }
         }
         nodeWriter.println(script);
         return nodeScanner.next().replaceAll("\n$", "");
