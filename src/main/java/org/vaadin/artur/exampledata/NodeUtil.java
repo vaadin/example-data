@@ -58,7 +58,7 @@ public class NodeUtil {
         nodeWriter.println(script);
         String token = nodeScanner.next();
         getLogger().debug("Got token: '{}'", token);
-        String value = token.replaceAll("\n$", "");
+        String value = token.replaceAll("[\r\n]*$", "");
         getLogger().debug("Returning: '{}'", value);
         return value;
     }
