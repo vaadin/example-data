@@ -23,7 +23,7 @@ public class NodeScriptInterface {
                     NodeScriptInterface.class.getResourceAsStream("/META-INF/frontend/example-data-bundle.js"), out);
         }
         String cmd = String.format("const all = require('%s'); const c = all.chance; const cdigit = all.cdigit;",
-                chanceTempFile.getAbsolutePath());
+                chanceTempFile.getAbsolutePath().replace("\\", "/"));
         node.initialize(cmd);
     }
 
