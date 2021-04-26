@@ -8,8 +8,8 @@ public class RandomFutureDate extends DataType<LocalDate> {
 
     private int maxDaysBack;
 
-    public RandomFutureDate(int maxDaysBack) {
-        this.maxDaysBack = maxDaysBack;
+    public RandomFutureDate(int maxDaysForward) {
+        this.maxDaysBack = maxDaysForward;
     }
 
     @Override

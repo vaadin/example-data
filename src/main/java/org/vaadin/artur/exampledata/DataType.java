@@ -32,6 +32,14 @@ public abstract class DataType<F> {
     public static final DataType<LocalDate> DATE_NEXT_1_YEAR = new RandomFutureDate(365);
     public static final DataType<LocalDate> DATE_NEXT_30_DAYS = new RandomFutureDate(30);
     public static final DataType<LocalDate> DATE_NEXT_7_DAYS = new RandomFutureDate(7);
+    public static final DataType<LocalDateTime> DATETIME_LAST_10_YEARS = new RandomPastDateTime(365 * 10, false);
+    public static final DataType<LocalDateTime> DATETIME_LAST_1_YEAR = new RandomPastDateTime(365, false);
+    public static final DataType<LocalDateTime> DATETIME_LAST_30_DAYS = new RandomPastDateTime(30, false);
+    public static final DataType<LocalDateTime> DATETIME_LAST_7_DAYS = new RandomPastDateTime(7, false);
+    public static final DataType<LocalDateTime> DATETIME_NEXT_10_YEARS = new RandomFutureDateTime(365 * 10, false);
+    public static final DataType<LocalDateTime> DATETIME_NEXT_1_YEAR = new RandomFutureDateTime(365, false);
+    public static final DataType<LocalDateTime> DATETIME_NEXT_30_DAYS = new RandomFutureDateTime(30, false);
+    public static final DataType<LocalDateTime> DATETIME_NEXT_7_DAYS = new RandomFutureDateTime(7, false);
     public static final DataType<LocalTime> TIME_RANDOM = new RandomTime(false);
     public static final DataType<LocalTime> TIME_HOURS = new RandomTime(true);
     public static final DataType<String> PHONE_NUMBER = new ChanceStringType("phone");

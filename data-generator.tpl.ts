@@ -56,6 +56,27 @@ const formatTime = (hour: number, minute: number, second: number): string => {
 
   return `${hourString}:${minuteString}:${secondString}`;
 };
+const timeRandom = (seed: number, _refTime: number, onlyHours: boolean): string => {
+  setSeed(seed);
+  const hour = chance.integer({ min: 0, max: 24 });
+  let minute = 0;
+  let second = 0;
+  if (!onlyHours) {
+    minute = chance.integer({ min: 0, max: 59 });
+    second = chance.integer({ min: 0, max: 59 });
+  }
+  return formatTime(hour, minute, second);
+};
+const dateTimeMaxDaysBack = (seed: number, refTime: number, maxDaysBack: number, onlyHours: boolean): string => {
+  const date: string = dateMaxDaysBack(seed, refTime, maxDaysBack);
+  const time: string = timeRandom(seed, refTime, onlyHours);
+  return date + 'T' + time;
+};
+const dateTimeMaxDaysForward = (seed: number, refTime: number, maxDaysBack: number, onlyHours: boolean): string => {
+  const date: string = dateMaxDaysForward(seed, refTime, maxDaysBack);
+  const time: string = timeRandom(seed, refTime, onlyHours);
+  return date + 'T' + time;
+};
 export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.ID]: { createValue: (_seed, _refTime) => idSequence++ },
   [DataType.UUID]: { createValue: (_seed, _refTime) => uuidv4() },
@@ -289,22 +310,56 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
       return dateMaxDaysForward(seed, refTime, 7);
     },
   },
+  [DataType.DateTimeLast10Years]: {
+    createValue: (seed, refTime) => {
+      return dateTimeMaxDaysBack(seed, refTime, 365 * 10, false);
+    },
+  },
+  [DataType.DateTimeLast1Year]: {
+    createValue: (seed, refTime) => {
+      return dateTimeMaxDaysBack(seed, refTime, 365, false);
+    },
+  },
+  [DataType.DateTimeLast30Days]: {
+    createValue: (seed, refTime) => {
+      return dateTimeMaxDaysBack(seed, refTime, 30, false);
+    },
+  },
+  [DataType.DateTimeLast7days]: {
+    createValue: (seed, refTime) => {
+      return dateTimeMaxDaysBack(seed, refTime, 7, false);
+    },
+  },
+  [DataType.DateTimeNext10Years]: {
+    createValue: (seed, refTime) => {
+      return dateTimeMaxDaysForward(seed, refTime, 365 * 10, false);
+    },
+  },
+  [DataType.DateTimeNext1Year]: {
+    createValue: (seed, refTime) => {
+      return dateTimeMaxDaysForward(seed, refTime, 365, false);
+    },
+  },
+  [DataType.DateTimeNext30Days]: {
+    createValue: (seed, refTime) => {
+      return dateTimeMaxDaysForward(seed, refTime, 30, false);
+    },
+  },
+  [DataType.DateTimeNext7days]: {
+    createValue: (seed, refTime) => {
+      return dateTimeMaxDaysForward(seed, refTime, 7, false);
+    },
+  },
   [DataType.TimeRandom]: {
-    createValue: (seed, _refTime) => {
+    createValue: (seed, refTime) => {
       setSeed(seed);
-      const hour = chance.integer({ min: 0, max: 24 });
-      const minute = chance.integer({ min: 0, max: 59 });
-      const second = chance.integer({ min: 0, max: 59 });
-      return formatTime(hour, minute, second);
+      return timeRandom(seed, refTime, false);
     },
   },
   [DataType.TimeHours]: {
-    createValue: (seed, _refTime) => {
+    createValue: (seed, refTime) => {
       setSeed(seed);
-      const hour = chance.integer({ min: 0, max: 24 });
-      const minute = 0;
-      const second = 0;
-      return formatTime(hour, minute, second);
+      return timeRandom(seed, refTime, true);
     },
   },
 
