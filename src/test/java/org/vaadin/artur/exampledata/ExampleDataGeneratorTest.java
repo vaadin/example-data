@@ -36,6 +36,8 @@ public class ExampleDataGeneratorTest {
         private boolean boolean5050, boolean9010, boolean1090;
         private LocalDate last10Years, lastYear, last30Days, last7Days;
         private LocalDate next10Years, nextYear, next30Days, next7Days;
+        private LocalDateTime dateTimeLast10Years, dateTimeLastYear, dateTimeLast30Days, dateTimeLast7Days;
+        private LocalDateTime dateTimeNext10Years, dateTimeNextYear, dateTimeNext30Days, dateTimeNext7Days;
         private LocalTime randomTime, randomHours;
         private UUID uuid;
 
@@ -355,6 +357,70 @@ public class ExampleDataGeneratorTest {
             this.next7Days = next7Days;
         }
 
+        public LocalDateTime getDateTimeLast10Years() {
+            return dateTimeLast10Years;
+        }
+
+        public void setDateTimeLast10Years(LocalDateTime dateTimeLast10Years) {
+            this.dateTimeLast10Years = dateTimeLast10Years;
+        }
+
+        public LocalDateTime getDateTimeLastYear() {
+            return dateTimeLastYear;
+        }
+
+        public void setDateTimeLastYear(LocalDateTime dateTimeLastYear) {
+            this.dateTimeLastYear = dateTimeLastYear;
+        }
+
+        public LocalDateTime getDateTimeLast30Days() {
+            return dateTimeLast30Days;
+        }
+
+        public void setDateTimeLast30Days(LocalDateTime dateTimeLast30Days) {
+            this.dateTimeLast30Days = dateTimeLast30Days;
+        }
+
+        public LocalDateTime getDateTimeLast7Days() {
+            return dateTimeLast7Days;
+        }
+
+        public void setDateTimeLast7Days(LocalDateTime dateTimeLast7Days) {
+            this.dateTimeLast7Days = dateTimeLast7Days;
+        }
+
+        public LocalDateTime getDateTimeNext10Years() {
+            return dateTimeNext10Years;
+        }
+
+        public void setDateTimeNext10Years(LocalDateTime dateTimeNext10Years) {
+            this.dateTimeNext10Years = dateTimeNext10Years;
+        }
+
+        public LocalDateTime getDateTimeNextYear() {
+            return dateTimeNextYear;
+        }
+
+        public void setDateTimeNextYear(LocalDateTime dateTimeNextYear) {
+            this.dateTimeNextYear = dateTimeNextYear;
+        }
+
+        public LocalDateTime getDateTimeNext30Days() {
+            return dateTimeNext30Days;
+        }
+
+        public void setDateTimeNext30Days(LocalDateTime dateTimeNext30Days) {
+            this.dateTimeNext30Days = dateTimeNext30Days;
+        }
+
+        public LocalDateTime getDateTimeNext7Days() {
+            return dateTimeNext7Days;
+        }
+
+        public void setDateTimeNext7Days(LocalDateTime dateTimeNext7Days) {
+            this.dateTimeNext7Days = dateTimeNext7Days;
+        }
+
         public LocalTime getRandomHours() {
             return randomHours;
         }
@@ -384,17 +450,22 @@ public class ExampleDataGeneratorTest {
             return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
                     + ", bookCoverImage=" + bookCoverImage + ", bookTitle=" + bookTitle + ", boolean1090=" + boolean1090
                     + ", boolean5050=" + boolean5050 + ", boolean9010=" + boolean9010 + ", companyName=" + companyName
-                    + ", dateOfBirth=" + dateOfBirth + ", domain=" + domain + ", ean=" + ean + ", email=" + email
-                    + ", firstName=" + firstName + ", foodProductEan=" + foodProductEan + ", foodProductImageUrl="
-                    + foodProductImageUrl + ", foodProductName=" + foodProductName + ", fullName=" + fullName + ", id="
-                    + id + ", last10Years=" + last10Years + ", last30Days=" + last30Days + ", last7Days=" + last7Days
-                    + ", lastName=" + lastName + ", lastYear=" + lastYear + ", lessThan10=" + lessThan10
-                    + ", lessThan100=" + lessThan100 + ", lessThan1000=" + lessThan1000 + ", lessThan10000="
-                    + lessThan10000 + ", next10Years=" + next10Years + ", next30Days=" + next30Days + ", next7Days="
-                    + next7Days + ", nextYear=" + nextYear + ", occupation=" + occupation + ", phoneNumber="
-                    + phoneNumber + ", price=" + price + ", profilePictureURL=" + profilePictureURL + ", randomHours="
-                    + randomHours + ", randomTime=" + randomTime + ", sentence=" + sentence + ", tranasctionStatus="
-                    + tranasctionStatus + ", twoWords=" + twoWords + ", uuid=" + uuid + ", word=" + word + "]";
+                    + ", dateOfBirth=" + dateOfBirth + ", dateTimeLast10Years=" + dateTimeLast10Years
+                    + ", dateTimeLast30Days=" + dateTimeLast30Days + ", dateTimeLast7Days=" + dateTimeLast7Days
+                    + ", dateTimeLastYear=" + dateTimeLastYear + ", dateTimeNext10Years=" + dateTimeNext10Years
+                    + ", dateTimeNext30Days=" + dateTimeNext30Days + ", dateTimeNext7Days=" + dateTimeNext7Days
+                    + ", dateTimeNextYear=" + dateTimeNextYear + ", domain=" + domain + ", ean=" + ean + ", email="
+                    + email + ", firstName=" + firstName + ", foodProductEan=" + foodProductEan
+                    + ", foodProductImageUrl=" + foodProductImageUrl + ", foodProductName=" + foodProductName
+                    + ", fullName=" + fullName + ", id=" + id + ", last10Years=" + last10Years + ", last30Days="
+                    + last30Days + ", last7Days=" + last7Days + ", lastName=" + lastName + ", lastYear=" + lastYear
+                    + ", lessThan10=" + lessThan10 + ", lessThan100=" + lessThan100 + ", lessThan1000=" + lessThan1000
+                    + ", lessThan10000=" + lessThan10000 + ", next10Years=" + next10Years + ", next30Days=" + next30Days
+                    + ", next7Days=" + next7Days + ", nextYear=" + nextYear + ", occupation=" + occupation
+                    + ", phoneNumber=" + phoneNumber + ", price=" + price + ", profilePictureURL=" + profilePictureURL
+                    + ", randomHours=" + randomHours + ", randomTime=" + randomTime + ", sentence=" + sentence
+                    + ", tranasctionStatus=" + tranasctionStatus + ", twoWords=" + twoWords + ", uuid=" + uuid
+                    + ", word=" + word + "]";
         }
 
     }
@@ -434,6 +505,7 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setBoolean5050, DataType.BOOLEAN_50_50);
         generator.setData(AllDataTypes::setBoolean9010, DataType.BOOLEAN_90_10);
         generator.setData(AllDataTypes::setBoolean1090, DataType.BOOLEAN_10_90);
+
         generator.setData(AllDataTypes::setLast10Years, DataType.DATE_LAST_10_YEARS);
         generator.setData(AllDataTypes::setLastYear, DataType.DATE_LAST_1_YEAR);
         generator.setData(AllDataTypes::setLast30Days, DataType.DATE_LAST_30_DAYS);
@@ -442,6 +514,16 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setNextYear, DataType.DATE_NEXT_1_YEAR);
         generator.setData(AllDataTypes::setNext30Days, DataType.DATE_NEXT_30_DAYS);
         generator.setData(AllDataTypes::setNext7Days, DataType.DATE_NEXT_7_DAYS);
+
+        generator.setData(AllDataTypes::setDateTimeLast10Years, DataType.DATETIME_LAST_10_YEARS);
+        generator.setData(AllDataTypes::setDateTimeLastYear, DataType.DATETIME_LAST_1_YEAR);
+        generator.setData(AllDataTypes::setDateTimeLast30Days, DataType.DATETIME_LAST_30_DAYS);
+        generator.setData(AllDataTypes::setDateTimeLast7Days, DataType.DATETIME_LAST_7_DAYS);
+        generator.setData(AllDataTypes::setDateTimeNext10Years, DataType.DATETIME_NEXT_10_YEARS);
+        generator.setData(AllDataTypes::setDateTimeNextYear, DataType.DATETIME_NEXT_1_YEAR);
+        generator.setData(AllDataTypes::setDateTimeNext30Days, DataType.DATETIME_NEXT_30_DAYS);
+        generator.setData(AllDataTypes::setDateTimeNext7Days, DataType.DATETIME_NEXT_7_DAYS);
+
         generator.setData(AllDataTypes::setRandomTime, DataType.TIME_RANDOM);
         generator.setData(AllDataTypes::setRandomHours, DataType.TIME_HOURS);
         generator.setData(AllDataTypes::setUuid, DataType.UUID);
@@ -498,6 +580,16 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals(LocalDate.of(2021, 2, 20), allDataTypes.getNextYear());
         Assert.assertEquals(LocalDate.of(2020, 8, 28), allDataTypes.getNext30Days());
         Assert.assertEquals(LocalDate.of(2020, 8, 16), allDataTypes.getNext7Days());
+
+        Assert.assertEquals(LocalDateTime.of(2015, 5, 16, 3, 9, 9), allDataTypes.getDateTimeLast10Years());
+        Assert.assertEquals(LocalDateTime.of(2020, 2, 2, 7, 19, 19), allDataTypes.getDateTimeLastYear());
+        Assert.assertEquals(LocalDateTime.of(2020, 7, 27, 21, 53, 53), allDataTypes.getDateTimeLast30Days());
+        Assert.assertEquals(LocalDateTime.of(2020, 8, 8, 12, 31, 31), allDataTypes.getDateTimeLast7Days());
+
+        Assert.assertEquals(LocalDateTime.of(2025, 11, 9, 11, 27, 27), allDataTypes.getDateTimeNext10Years());
+        Assert.assertEquals(LocalDateTime.of(2021, 2, 20, 11, 29, 29), allDataTypes.getDateTimeNextYear());
+        Assert.assertEquals(LocalDateTime.of(2020, 8, 28, 8, 20, 20), allDataTypes.getDateTimeNext30Days());
+        Assert.assertEquals(LocalDateTime.of(2020, 8, 16, 21, 52, 52), allDataTypes.getDateTimeNext7Days());
 
         Assert.assertEquals(LocalTime.of(12, 31, 31), allDataTypes.getRandomTime());
         Assert.assertEquals(LocalTime.of(12, 0, 0), allDataTypes.getRandomHours());
