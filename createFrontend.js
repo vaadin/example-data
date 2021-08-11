@@ -4,7 +4,7 @@ const prettier = require('prettier');
 
 const targetFile = 'src/main/resources/META-INF/resources/frontend/data-generator.ts';
 const template = 'data-generator.tpl.ts';
-const inputFilePath = 'src/main/resources/org/vaadin/artur/exampledata';
+const inputFilePath = 'src/main/resources/com/vaadin/exampledata';
 
 let generatorRandomOptions = '';
 let generatorRandomOptionGenerators = '';
