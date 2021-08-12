@@ -20,6 +20,8 @@ before_install:
 install:
   - npm install
   - node createFrontend.js
+  - rm src/main/resources/META-INF/resources/frontend/example-data-bundle.js
+  - node_modules/.bin/rollup -c 
 
 script: 
   - mvn package -Pdirectory
