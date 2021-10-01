@@ -12,18 +12,21 @@ import org.slf4j.LoggerFactory;
 public class NodeScriptInterface {
 
     private static final DateTimeFormatter OUTPUT_DATE_PATTERN = DateTimeFormatter.ofPattern("M/d/y");
-    private static NodeUtil node = new NodeUtil();
+    private static NodeUtil node;
 
     private static void init() throws InterruptedException, IOException {
-        File chanceTempFile = File.createTempFile("exampleutil-bundle", "js");
-        chanceTempFile.deleteOnExit();
-        try (FileOutputStream out = new FileOutputStream(chanceTempFile)) {
-            IOUtils.copyLarge(
-                    NodeScriptInterface.class.getResourceAsStream("/META-INF/frontend/example-data-bundle.js"), out);
+        if (node == null) {
+            File chanceTempFile = File.createTempFile("exampleutil-bundle", "js");
+            chanceTempFile.deleteOnExit();
+            try (FileOutputStream out = new FileOutputStream(chanceTempFile)) {
+                IOUtils.copyLarge(
+                        NodeScriptInterface.class.getResourceAsStream("/META-INF/frontend/example-data-bundle.js"), out);
+            }
+            String cmd = String.format("const all = require('%s'); const c = all.chance; const cdigit = all.cdigit;",
+                    chanceTempFile.getAbsolutePath().replace("\\", "/"));
+            node = new NodeUtil();
+            node.initialize(cmd);
         }
-        String cmd = String.format("const all = require('%s'); const c = all.chance; const cdigit = all.cdigit;",
-                chanceTempFile.getAbsolutePath().replace("\\", "/"));
-        node.initialize(cmd);
     }
 
     public static String getChanceString(int seed, String type, String options) {
