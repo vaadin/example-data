@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -14,7 +15,6 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.util.UriUtils;
 
 public class ExampleDataGeneratorTest {
 
@@ -564,8 +564,8 @@ public class ExampleDataGeneratorTest {
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.not(CoreMatchers.containsString("#")));
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.startsWith("data:image/svg+xml;utf8,"));
 
-        String decodedImage = UriUtils.decode(allDataTypes.getBookCoverImage().replace("data:image/svg+xml;utf8,", ""),
-                StandardCharsets.UTF_8);
+        byte[] decode = Base64.getDecoder().decode(allDataTypes.getBookCoverImage().replace("data:image/svg+xml;utf8,", ""));
+        String decodedImage = new String(decode,StandardCharsets.UTF_8);
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getFullName()));
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getBookTitle()));
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(DataType.BOOK_IMAGE_BACKGROUND
