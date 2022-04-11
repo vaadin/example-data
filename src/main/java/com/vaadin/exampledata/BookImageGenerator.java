@@ -18,7 +18,7 @@ public class BookImageGenerator extends DataType<String> {
         String[] templateRows = FileCache.get("bookcover.svg.tpl");
         String template = Stream.of(templateRows).collect(Collectors.joining("\n"));
         String imageData = template.replace("#title#", title).replace("#image#", imageUrl).replace("#author#", author);
-        return "data:image/svg+xml;utf8," + Base64.getEncoder().encodeToString(imageData.getBytes(StandardCharsets.UTF_8));
+        return "data:image/svg+xml;base64," + Base64.getEncoder().encodeToString(imageData.getBytes(StandardCharsets.UTF_8));
     }
 
 }

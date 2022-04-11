@@ -562,9 +562,9 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals("15054313", allDataTypes.getFoodProductEan());
         Assert.assertEquals("Becoming one with measuring things", allDataTypes.getBookTitle());
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.not(CoreMatchers.containsString("#")));
-        MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.startsWith("data:image/svg+xml;utf8,"));
+        MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.startsWith("data:image/svg+xml;base64,"));
 
-        byte[] decode = Base64.getDecoder().decode(allDataTypes.getBookCoverImage().replace("data:image/svg+xml;utf8,", ""));
+        byte[] decode = Base64.getDecoder().decode(allDataTypes.getBookCoverImage().replace("data:image/svg+xml;base64,", ""));
         String decodedImage = new String(decode,StandardCharsets.UTF_8);
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getFullName()));
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getBookTitle()));
