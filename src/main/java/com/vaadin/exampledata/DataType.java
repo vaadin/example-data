@@ -54,7 +54,8 @@ public abstract class DataType<F> {
     public static final DataType<String> BOOK_GENRE = new DataTypeWithRandomOptions("BookGenre.txt");
     public static final DataType<String> BOOK_IMAGE_BACKGROUND = new DataTypeWithRandomOptions(
             "BookImageBackground.txt");
-    public static final DataType<byte[]> BOOK_IMAGE_URL = new BookImageGenerator();
+    public static final DataType<String> BOOK_IMAGE_URL = new BookImageGenerator();
+    public static final DataType<byte[]> BOOK_IMAGE_URL_BYTES = new BookImageGeneratorBytes();
     public static final DataType<String> WORD = new ChanceStringType("word");
     public static final DataType<String> TWO_WORDS = new CombinedStringGenerator(false, 1, WORD, WORD);
     public static final DataType<String> SENTENCE = new ChanceStringType("sentence");
@@ -65,7 +66,8 @@ public abstract class DataType<F> {
     public static final DataType<Integer> NUMBER_UP_TO_10000 = new ChanceIntegerType("integer", "{min: 1, max: 10000}");
     public static final DataType<String> FOOD_PRODUCT_EAN = new FoodProductEan();
     public static final DataType<String> FOOD_PRODUCT_NAME = new FoodProductName();
-    public static final DataType<byte[]> FOOD_PRODUCT_IMAGE = new FoodProductImage();
+    public static final DataType<String> FOOD_PRODUCT_IMAGE = new FoodProductImage();
+    public static final DataType<byte[]> FOOD_PRODUCT_IMAGE_BYTES = new FoodProductImageBytes();
     public static final DataType<Boolean> BOOLEAN_50_50 = new ChanceBooleanType("bool", "{likelihood: 50}");
     public static final DataType<Boolean> BOOLEAN_90_10 = new ChanceBooleanType("bool", "{likelihood: 90}");
     public static final DataType<Boolean> BOOLEAN_10_90 = new ChanceBooleanType("bool", "{likelihood: 10}");
