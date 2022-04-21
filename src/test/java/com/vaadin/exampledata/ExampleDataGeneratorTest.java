@@ -31,8 +31,10 @@ public class ExampleDataGeneratorTest {
         private int lessThan100;
         private int lessThan1000;
         private int lessThan10000;
-        private String foodProductName, foodProductEan, foodProductImageUrl;
-        private String bookTitle, bookCoverImage;
+        private String foodProductName, foodProductEan;
+        private byte[] foodProductImageUrl;
+        private String bookTitle;
+        private byte[] bookCoverImage;
         private boolean boolean5050, boolean9010, boolean1090;
         private LocalDate last10Years, lastYear, last30Days, last7Days;
         private LocalDate next10Years, nextYear, next30Days, next7Days;
@@ -245,11 +247,11 @@ public class ExampleDataGeneratorTest {
             this.foodProductEan = foodProductEan;
         }
 
-        public String getFoodProductImageUrl() {
+        public byte[] getFoodProductImageUrl() {
             return foodProductImageUrl;
         }
 
-        public void setFoodProductImageUrl(String foodProductImageUrl) {
+        public void setFoodProductImageUrl(byte[] foodProductImageUrl) {
             this.foodProductImageUrl = foodProductImageUrl;
         }
 
@@ -261,11 +263,11 @@ public class ExampleDataGeneratorTest {
             this.bookTitle = bookTitle;
         }
 
-        public String getBookCoverImage() {
+        public byte[] getBookCoverImage() {
             return bookCoverImage;
         }
 
-        public void setBookCoverImage(String bookCoverImage) {
+        public void setBookCoverImage(byte[] bookCoverImage) {
             this.bookCoverImage = bookCoverImage;
         }
 
@@ -558,13 +560,13 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals(5247, allDataTypes.getLessThan10000());
         Assert.assertEquals("Taillefine", allDataTypes.getFoodProductName());
         Assert.assertEquals("https://static.openfoodfacts.org/images/products/15054313/front_fr.4.400.jpg",
-                allDataTypes.getFoodProductImageUrl());
+                new String(allDataTypes.getFoodProductImageUrl(), StandardCharsets.UTF_8));
         Assert.assertEquals("15054313", allDataTypes.getFoodProductEan());
         Assert.assertEquals("Becoming one with measuring things", allDataTypes.getBookTitle());
-        MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.not(CoreMatchers.containsString("#")));
-        MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.startsWith("data:image/svg+xml;base64,"));
+        MatcherAssert.assertThat(new String(allDataTypes.getBookCoverImage(), StandardCharsets.UTF_8), CoreMatchers.not(CoreMatchers.containsString("#")));
+        MatcherAssert.assertThat(new String(allDataTypes.getBookCoverImage(), StandardCharsets.UTF_8), CoreMatchers.startsWith("data:image/svg+xml;base64,"));
 
-        byte[] decode = Base64.getDecoder().decode(allDataTypes.getBookCoverImage().replace("data:image/svg+xml;base64,", ""));
+        byte[] decode = Base64.getDecoder().decode(new String(allDataTypes.getBookCoverImage(), StandardCharsets.UTF_8).replace("data:image/svg+xml;base64,", ""));
         String decodedImage = new String(decode,StandardCharsets.UTF_8);
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getFullName()));
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getBookTitle()));
