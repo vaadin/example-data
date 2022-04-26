@@ -78,31 +78,27 @@ const dateTimeMaxDaysForward = (seed: number, refTime: number, maxDaysBack: numb
   return date + 'T' + time;
 };
 
-function createFoodProductImageValue() {
-  return {
-    createValue: (seed: number, _refTime: number) => {
-      return random(options.FoodProducts, seed).split('\t')[2];
-    },
-  };
-}
+const createFoodProductImageValue = {
+  createValue: (seed: number, _refTime: number) => {
+    return random(options.FoodProducts, seed).split('\t')[2];
+  },
+};
 
-function createBookImageUrlValue() {
-  return {
-    createValue: (seed: number, refTime: number) => {
-      const title = DataGenerators[DataType.BookTitle].createValue(seed, refTime);
-      const author = DataGenerators[DataType.FullName].createValue(seed, refTime);
-      const imageBackgroundUrl = DataGenerators[DataType.BookImageBackground].createValue(seed, refTime);
+const createBookImageUrlValue = {
+  createValue: (seed: number, refTime: number) => {
+    const title = DataGenerators[DataType.BookTitle].createValue(seed, refTime);
+    const author = DataGenerators[DataType.FullName].createValue(seed, refTime);
+    const imageBackgroundUrl = DataGenerators[DataType.BookImageBackground].createValue(seed, refTime);
 
-      const template = options['bookcover.svg.tpl'].join('\n');
-      return (
-          'data:image/svg+xml;utf8,' +
-          encodeURIComponent(
-              template.replace('#title#', title).replace('#image#', imageBackgroundUrl).replace('#author#', author)
-          )
-      );
-    },
-  };
-}
+    const template = options['bookcover.svg.tpl'].join('\n');
+    return (
+      'data:image/svg+xml;utf8,' +
+      encodeURIComponent(
+        template.replace('#title#', title).replace('#image#', imageBackgroundUrl).replace('#author#', author)
+      )
+    );
+  },
+};
 
 export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.ID]: { createValue: (_seed, _refTime) => idSequence++ },
@@ -259,10 +255,10 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
       return random(options.FoodProducts, seed).split('\t')[1];
     },
   },
-  [DataType.FoodProductImage]: createFoodProductImageValue(),
-  [DataType.FoodProductImageBytes]: createFoodProductImageValue(),
-  [DataType.BookImageUrl]: createBookImageUrlValue(),
-  [DataType.BookImageUrlBytes]: createBookImageUrlValue(),
+  [DataType.FoodProductImage]: createFoodProductImageValue,
+  [DataType.FoodProductImageBytes]: createFoodProductImageValue,
+  [DataType.BookImageUrl]: createBookImageUrlValue,
+  [DataType.BookImageUrlBytes]: createBookImageUrlValue,
   [DataType.Boolean_50_50]: {
     createValue: (seed, _refTime) => {
       setSeed(seed);
