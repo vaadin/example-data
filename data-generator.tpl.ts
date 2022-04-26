@@ -77,6 +77,33 @@ const dateTimeMaxDaysForward = (seed: number, refTime: number, maxDaysBack: numb
   const time: string = timeRandom(seed, refTime, onlyHours);
   return date + 'T' + time;
 };
+
+function createFoodProductImageValue() {
+  return {
+    createValue: (seed: number, _refTime: number) => {
+      return random(options.FoodProducts, seed).split('\t')[2];
+    },
+  };
+}
+
+function createBookImageUrlValue() {
+  return {
+    createValue: (seed: number, refTime: number) => {
+      const title = DataGenerators[DataType.BookTitle].createValue(seed, refTime);
+      const author = DataGenerators[DataType.FullName].createValue(seed, refTime);
+      const imageBackgroundUrl = DataGenerators[DataType.BookImageBackground].createValue(seed, refTime);
+
+      const template = options['bookcover.svg.tpl'].join('\n');
+      return (
+          'data:image/svg+xml;utf8,' +
+          encodeURIComponent(
+              template.replace('#title#', title).replace('#image#', imageBackgroundUrl).replace('#author#', author)
+          )
+      );
+    },
+  };
+}
+
 export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.ID]: { createValue: (_seed, _refTime) => idSequence++ },
   [DataType.UUID]: { createValue: (_seed, _refTime) => uuidv4() },
@@ -232,46 +259,10 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
       return random(options.FoodProducts, seed).split('\t')[1];
     },
   },
-  [DataType.FoodProductImage]: {
-    createValue: (seed, _refTime) => {
-      return random(options.FoodProducts, seed).split('\t')[2];
-    },
-  },
-  [DataType.FoodProductImageBytes]: {
-    createValue: (seed, _refTime) => {
-      return random(options.FoodProducts, seed).split('\t')[2];
-    },
-  },
-  [DataType.BookImageUrl]: {
-    createValue: (seed, refTime) => {
-      const title = DataGenerators[DataType.BookTitle].createValue(seed, refTime);
-      const author = DataGenerators[DataType.FullName].createValue(seed, refTime);
-      const imageBackgroundUrl = DataGenerators[DataType.BookImageBackground].createValue(seed, refTime);
-
-      const template = options['bookcover.svg.tpl'].join('\n');
-      return (
-        'data:image/svg+xml;utf8,' +
-        encodeURIComponent(
-          template.replace('#title#', title).replace('#image#', imageBackgroundUrl).replace('#author#', author)
-        )
-      );
-    },
-  },
-  [DataType.BookImageUrlBytes]: {
-    createValue: (seed, refTime) => {
-      const title = DataGenerators[DataType.BookTitle].createValue(seed, refTime);
-      const author = DataGenerators[DataType.FullName].createValue(seed, refTime);
-      const imageBackgroundUrl = DataGenerators[DataType.BookImageBackground].createValue(seed, refTime);
-
-      const template = options['bookcover.svg.tpl'].join('\n');
-      return (
-          'data:image/svg+xml;utf8,' +
-          encodeURIComponent(
-              template.replace('#title#', title).replace('#image#', imageBackgroundUrl).replace('#author#', author)
-          )
-      );
-    },
-  },
+  [DataType.FoodProductImage]: createFoodProductImageValue(),
+  [DataType.FoodProductImageBytes]: createFoodProductImageValue(),
+  [DataType.BookImageUrl]: createBookImageUrlValue(),
+  [DataType.BookImageUrlBytes]: createBookImageUrlValue(),
   [DataType.Boolean_50_50]: {
     createValue: (seed, _refTime) => {
       setSeed(seed);
