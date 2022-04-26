@@ -237,6 +237,11 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
       return random(options.FoodProducts, seed).split('\t')[2];
     },
   },
+  [DataType.FoodProductImageBytes]: {
+    createValue: (seed, _refTime) => {
+      return random(options.FoodProducts, seed).split('\t')[2];
+    },
+  },
   [DataType.BookImageUrl]: {
     createValue: (seed, refTime) => {
       const title = DataGenerators[DataType.BookTitle].createValue(seed, refTime);
@@ -249,6 +254,21 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
         encodeURIComponent(
           template.replace('#title#', title).replace('#image#', imageBackgroundUrl).replace('#author#', author)
         )
+      );
+    },
+  },
+  [DataType.BookImageUrlBytes]: {
+    createValue: (seed, refTime) => {
+      const title = DataGenerators[DataType.BookTitle].createValue(seed, refTime);
+      const author = DataGenerators[DataType.FullName].createValue(seed, refTime);
+      const imageBackgroundUrl = DataGenerators[DataType.BookImageBackground].createValue(seed, refTime);
+
+      const template = options['bookcover.svg.tpl'].join('\n');
+      return (
+          'data:image/svg+xml;utf8,' +
+          encodeURIComponent(
+              template.replace('#title#', title).replace('#image#', imageBackgroundUrl).replace('#author#', author)
+          )
       );
     },
   },
