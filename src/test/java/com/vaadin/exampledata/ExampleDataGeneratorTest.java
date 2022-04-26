@@ -32,7 +32,9 @@ public class ExampleDataGeneratorTest {
         private int lessThan1000;
         private int lessThan10000;
         private String foodProductName, foodProductEan, foodProductImageUrl;
+        private byte[] foodProductImageUrlBytes;
         private String bookTitle, bookCoverImage;
+        private byte[] bookCoverImageBytes;
         private boolean boolean5050, boolean9010, boolean1090;
         private LocalDate last10Years, lastYear, last30Days, last7Days;
         private LocalDate next10Years, nextYear, next30Days, next7Days;
@@ -249,8 +251,16 @@ public class ExampleDataGeneratorTest {
             return foodProductImageUrl;
         }
 
+        public byte[] getFoodProductImageUrlBytes() {
+            return foodProductImageUrlBytes;
+        }
+
         public void setFoodProductImageUrl(String foodProductImageUrl) {
             this.foodProductImageUrl = foodProductImageUrl;
+        }
+
+        public void setFoodProductImageUrlBytes(byte[] foodProductImageUrlBytes) {
+            this.foodProductImageUrlBytes = foodProductImageUrlBytes;
         }
 
         public String getBookTitle() {
@@ -265,8 +275,16 @@ public class ExampleDataGeneratorTest {
             return bookCoverImage;
         }
 
+        public byte[] getBookCoverImageBytes() {
+            return bookCoverImageBytes;
+        }
+
         public void setBookCoverImage(String bookCoverImage) {
             this.bookCoverImage = bookCoverImage;
+        }
+
+        public void setBookCoverImageBytes(byte[] bookCoverImageBytes) {
+            this.bookCoverImageBytes = bookCoverImageBytes;
         }
 
         public boolean isBoolean5050() {
@@ -499,9 +517,11 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setLessThan10000, DataType.NUMBER_UP_TO_10000);
         generator.setData(AllDataTypes::setFoodProductEan, DataType.FOOD_PRODUCT_EAN);
         generator.setData(AllDataTypes::setFoodProductImageUrl, DataType.FOOD_PRODUCT_IMAGE);
+        generator.setData(AllDataTypes::setFoodProductImageUrlBytes, DataType.FOOD_PRODUCT_IMAGE_BYTES);
         generator.setData(AllDataTypes::setFoodProductName, DataType.FOOD_PRODUCT_NAME);
         generator.setData(AllDataTypes::setBookTitle, DataType.BOOK_TITLE);
         generator.setData(AllDataTypes::setBookCoverImage, DataType.BOOK_IMAGE_URL);
+        generator.setData(AllDataTypes::setBookCoverImageBytes, DataType.BOOK_IMAGE_URL_BYTES);
         generator.setData(AllDataTypes::setBoolean5050, DataType.BOOLEAN_50_50);
         generator.setData(AllDataTypes::setBoolean9010, DataType.BOOLEAN_90_10);
         generator.setData(AllDataTypes::setBoolean1090, DataType.BOOLEAN_10_90);
@@ -559,10 +579,14 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals("Taillefine", allDataTypes.getFoodProductName());
         Assert.assertEquals("https://static.openfoodfacts.org/images/products/15054313/front_fr.4.400.jpg",
                 allDataTypes.getFoodProductImageUrl());
+        Assert.assertEquals("https://static.openfoodfacts.org/images/products/15054313/front_fr.4.400.jpg",
+                new String(allDataTypes.getFoodProductImageUrlBytes(), StandardCharsets.UTF_8));
         Assert.assertEquals("15054313", allDataTypes.getFoodProductEan());
         Assert.assertEquals("Becoming one with measuring things", allDataTypes.getBookTitle());
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.not(CoreMatchers.containsString("#")));
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.startsWith("data:image/svg+xml;base64,"));
+        MatcherAssert.assertThat(new String(allDataTypes.getBookCoverImageBytes(), StandardCharsets.UTF_8), CoreMatchers.not(CoreMatchers.containsString("#")));
+        MatcherAssert.assertThat(new String(allDataTypes.getBookCoverImageBytes(), StandardCharsets.UTF_8), CoreMatchers.startsWith("data:image/svg+xml;base64,"));
 
         byte[] decode = Base64.getDecoder().decode(allDataTypes.getBookCoverImage().replace("data:image/svg+xml;base64,", ""));
         String decodedImage = new String(decode,StandardCharsets.UTF_8);

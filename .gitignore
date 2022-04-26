@@ -11,3 +11,4 @@ node_modules
 
 src/main/resources/META-INF/resources/frontend/data-generator.esm.ts
 src/main/resources/META-INF/frontend/example-data-bundle.esm.js
+src/main/resources/META-INF/frontend/example-data-bundle.js
