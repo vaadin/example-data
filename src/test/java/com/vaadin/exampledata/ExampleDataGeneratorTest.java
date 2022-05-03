@@ -585,8 +585,6 @@ public class ExampleDataGeneratorTest {
         Assert.assertEquals("Becoming one with measuring things", allDataTypes.getBookTitle());
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.not(CoreMatchers.containsString("#")));
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.startsWith("data:image/svg+xml;base64,"));
-        MatcherAssert.assertThat(new String(allDataTypes.getBookCoverImageBytes(), StandardCharsets.UTF_8), CoreMatchers.not(CoreMatchers.containsString("#")));
-        MatcherAssert.assertThat(new String(allDataTypes.getBookCoverImageBytes(), StandardCharsets.UTF_8), CoreMatchers.startsWith("data:image/svg+xml;base64,"));
 
         byte[] decode = Base64.getDecoder().decode(allDataTypes.getBookCoverImage().replace("data:image/svg+xml;base64,", ""));
         String decodedImage = new String(decode,StandardCharsets.UTF_8);

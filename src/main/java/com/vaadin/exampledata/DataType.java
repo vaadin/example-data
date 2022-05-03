@@ -54,6 +54,7 @@ public abstract class DataType<F> {
     public static final DataType<String> BOOK_GENRE = new DataTypeWithRandomOptions("BookGenre.txt");
     public static final DataType<String> BOOK_IMAGE_BACKGROUND = new DataTypeWithRandomOptions(
             "BookImageBackground.txt");
+    public static final DataType<byte[]> BOOK_IMAGE_BACKGROUND_BINARY = new ChanceBinary("BookImageFileNames.txt");
     public static final DataType<String> BOOK_IMAGE_URL = new BookImageGenerator();
     public static final DataType<byte[]> BOOK_IMAGE_URL_BYTES = new BookImageGeneratorBytes();
     public static final DataType<String> WORD = new ChanceStringType("word");
