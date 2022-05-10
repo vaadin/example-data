@@ -8,7 +8,7 @@ const inputFilePath = 'src/main/resources/com/vaadin/exampledata';
 
 let generatorRandomOptions = '';
 let generatorRandomOptionGenerators = '';
-fs.readdirSync(inputFilePath).forEach((file) => {
+fs.readdirSync(inputFilePath).filter((file) => fs.statSync(inputFilePath + '/' + file).isFile()).sort().forEach((file) => {
   const textFile = file.endsWith('.txt');
   const optionName = file.replace('.txt', '');
   const options = fs.readFileSync(inputFilePath + '/' + file, { encoding: 'UTF-8' });
