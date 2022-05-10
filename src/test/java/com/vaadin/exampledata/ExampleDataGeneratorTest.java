@@ -590,8 +590,6 @@ public class ExampleDataGeneratorTest {
         String decodedImage = new String(decode,StandardCharsets.UTF_8);
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getFullName()));
         MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getBookTitle()));
-        MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(DataType.BOOK_IMAGE_BACKGROUND
-                .getValue(new Random(), 2015781843, LocalDateTime.now()).replace("&", "&amp;")));
 
         Assert.assertEquals(LocalDate.of(2015, 5, 16), allDataTypes.getLast10Years());
         Assert.assertEquals(LocalDate.of(2020, 2, 2), allDataTypes.getLastYear());
