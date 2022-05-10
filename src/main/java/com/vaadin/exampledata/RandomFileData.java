@@ -3,11 +3,11 @@ package com.vaadin.exampledata;
 import java.time.LocalDateTime;
 import java.util.Random;
 
-public class ChanceBinary extends DataType<byte[]> {
+public class RandomFileData extends DataType<byte[]> {
 
     private byte[][] options;
 
-    public ChanceBinary(String fileNames) {
+    public RandomFileData(String fileNames) {
         this.options = FileCache.getBinaries(fileNames);
     }
 
