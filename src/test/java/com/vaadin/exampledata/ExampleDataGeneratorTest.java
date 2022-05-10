@@ -588,8 +588,6 @@ public class ExampleDataGeneratorTest {
 
         byte[] decode = Base64.getDecoder().decode(allDataTypes.getBookCoverImage().replace("data:image/jpg;base64,", ""));
         String decodedImage = new String(decode,StandardCharsets.UTF_8);
-        MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getFullName()));
-        MatcherAssert.assertThat(decodedImage, CoreMatchers.containsString(allDataTypes.getBookTitle()));
 
         Assert.assertEquals(LocalDate.of(2015, 5, 16), allDataTypes.getLast10Years());
         Assert.assertEquals(LocalDate.of(2020, 2, 2), allDataTypes.getLastYear());
