@@ -7,8 +7,7 @@ public class BookImageGeneratorBytes extends DataType<byte[]> {
 
     @Override
     public byte[] getValue(Random random, int seed, LocalDateTime referenceTime) {
-        BookImageGenerator bookImageGenerator = new BookImageGenerator();
-        return bookImageGenerator.getValue(random, seed, referenceTime).getBytes();
+        return DataType.BOOK_IMAGE_BACKGROUND_BINARY.getValue(random, seed, referenceTime);
     }
 
 }

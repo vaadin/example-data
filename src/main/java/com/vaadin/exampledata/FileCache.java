@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 public class FileCache {
 
     private static HashMap<String, String[]> fileCache = new HashMap<>();
+    private static HashMap<String, byte[]> fileDataCache = new HashMap<>();
 
     public static String[] get(String resourceName) {
 
@@ -29,5 +30,22 @@ public class FileCache {
             }
             return new String[] {};
         });
+    }
+
+    public static byte[] getFileData(String fileName) {
+        return fileDataCache.computeIfAbsent(fileName, (name) -> {
+            try (InputStream res = FileCache.class.getResourceAsStream(name)) {
+                if (res == null) {
+                    throw new IOException("Resource with name "
+                            + FileCache.class.getPackage().getName().replace(".", "/") + "/" + name + " not found");
+                }
+                return IOUtils.toByteArray(res);
+
+            } catch (IOException e) {
+                LoggerFactory.getLogger(FileCache.class).error("Unable to load binary data from " + name, e);
+                return new byte[]{};
+            }
+        });
+
     }
 }
