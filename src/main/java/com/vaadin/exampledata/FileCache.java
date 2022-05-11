@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 public class FileCache {
 
     private static HashMap<String, String[]> fileCache = new HashMap<>();
-    private static HashMap<String, byte[][]> binaryCache = new HashMap<>();
+    private static HashMap<String, byte[]> fileDataCache = new HashMap<>();
 
     public static String[] get(String resourceName) {
 
@@ -32,31 +32,20 @@ public class FileCache {
         });
     }
 
-    public static byte[][] getBinaries(String fileNamesFile) {
-        return binaryCache.computeIfAbsent(fileNamesFile, (name) -> {
-            String[] fileNames = get(name);
-            byte[][] binaries = new byte[fileNames.length][];
+    public static byte[] getFileData(String fileName) {
+        return fileDataCache.computeIfAbsent(fileName, (name) -> {
+            try (InputStream res = FileCache.class.getResourceAsStream(name)) {
+                if (res == null) {
+                    throw new IOException("Resource with name "
+                            + FileCache.class.getPackage().getName().replace(".", "/") + "/" + name + " not found");
+                }
+                return IOUtils.toByteArray(res);
 
-            for (int i = 0; i < fileNames.length; i++) {
-                binaries[i] = getContent(fileNames[i]);
+            } catch (IOException e) {
+                LoggerFactory.getLogger(FileCache.class).error("Unable to load binary data from " + name, e);
+                return new byte[]{};
             }
-
-            return binaries;
         });
+
     }
-
-    private static byte[] getContent(String resourceName) {
-        try (InputStream res = FileCache.class.getResourceAsStream(resourceName)) {
-            if (res == null) {
-                throw new IOException("Resource with name "
-                        + FileCache.class.getPackage().getName().replace(".", "/") + "/" + resourceName + " not found");
-            }
-            return IOUtils.toByteArray(res);
-
-        } catch (IOException e) {
-            LoggerFactory.getLogger(FileCache.class).error("Unable to load binary data from " + resourceName, e);
-            return new byte[]{};
-        }
-    }
-
 }
