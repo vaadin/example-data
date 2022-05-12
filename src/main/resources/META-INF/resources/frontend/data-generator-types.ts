@@ -25,6 +25,7 @@ export enum DataType {
   BookImageUrl = 'BOOK_IMAGE_URL',
   BookImageUrlBytes = 'BOOK_IMAGE_URL_BYTES',
   BookImageBackground = 'BOOK_IMAGE_BACKGROUND',
+  BookImageFileNames = 'BOOK_IMAGE_FILE_NAMES',
   BookGenre = 'BOOK_GENRE',
   Price = 'PRICE',
   Word = 'WORD',

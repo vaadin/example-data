@@ -84,6 +84,16 @@ const createFoodProductImageValue = {
   },
 };
 
+const createBookImageUrlValue = {
+  createValue: (seed: number, _refTime: number) => {
+    const width = 200;
+    const height = width * 2;
+    const imageBackgroundUrl = random(options['BookImageBackground.src'], seed);
+
+    return `${imageBackgroundUrl}?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=${width}&h=${height}&q=80&fm=jpg`;
+  },
+};
+
 export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.ID]: { createValue: (_seed, _refTime) => idSequence++ },
   [DataType.UUID]: { createValue: (_seed, _refTime) => uuidv4() },
@@ -241,6 +251,8 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
   },
   [DataType.FoodProductImage]: createFoodProductImageValue,
   [DataType.FoodProductImageBytes]: createFoodProductImageValue,
+  [DataType.BookImageUrl]: createBookImageUrlValue,
+  [DataType.BookImageUrlBytes]: createBookImageUrlValue,
   [DataType.Boolean_50_50]: {
     createValue: (seed, _refTime) => {
       setSeed(seed);
