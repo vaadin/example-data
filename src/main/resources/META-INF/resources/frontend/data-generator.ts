@@ -4,9 +4,6 @@ import { uuidv4, chance as chanceImport, cdigit } from './example-data-bundle';
 
 const options: any = {};
 
-let imageDataList: ArrayBuffer[] = [];
-let imageFetchingInProgress = false;
-
 options['BookGenre'] = [
   "Children's books",
   'Best sellers',
@@ -1660,11 +1657,6 @@ const random = (array: string[], seed: number) => {
   return array[chance.integer({ min: 0, max: array.length - 1 })];
 };
 
-const randomEntry = (array: any[], seed: number) => {
-  setSeed(seed);
-  return array[chance.integer({ min: 0, max: array.length - 1 })];
-};
-
 let idSequence = 1;
 let chance = chanceImport.Chance(123);
 const setSeed = (seed: number) => {
@@ -1747,46 +1739,11 @@ const createBookImageUrlValue = {
   },
 };
 
-const waitForImageFetchingToFinish = () => {
-  return new Promise<void>((resolve) => {
-    (function waitForFlagChange() {
-      if (!imageFetchingInProgress) return resolve();
-      setTimeout(waitForFlagChange, 50);
-    })();
-  });
-};
-
-const ensureImageData = async () => {
-  if (imageFetchingInProgress) {
-    await waitForImageFetchingToFinish();
-    return;
-  }
-  if (imageDataList.length > 0) {
-    return;
-  }
-  imageFetchingInProgress = true;
-
-  const imageUrls = options['BookImageBackground.src'];
-  if (!imageUrls) {
-    throw new Error('No imageUrls');
-  }
-  const promises: Promise<void>[] = [];
-
-  for (const imageUrl of imageUrls) {
-    promises.push(
-      fetch(rawImageUrlToDownloadUrl(imageUrl)).then(async (response) => {
-        imageDataList.push(await response.arrayBuffer());
-      })
-    );
-  }
-  await Promise.all(promises);
-  imageFetchingInProgress = false;
-};
-
 const createBookImageDataValue = {
   createValue: async (seed: number, _refTime: number) => {
-    await ensureImageData();
-    return randomEntry(imageDataList, seed);
+    const imageBackgroundUrl = random(options['BookImageBackground.src'], seed);
+    const response = await fetch(rawImageUrlToDownloadUrl(imageBackgroundUrl));
+    return await response.arrayBuffer();
   },
 };
 
