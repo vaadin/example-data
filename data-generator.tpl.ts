@@ -84,13 +84,24 @@ const createFoodProductImageValue = {
   },
 };
 
+const rawImageUrlToDownloadUrl = (imageUrl: string) => {
+  const width = 200;
+  const height = width * 2;
+  return `${imageUrl}?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=${width}&h=${height}&q=80&fm=jpg`;
+};
+
 const createBookImageUrlValue = {
   createValue: (seed: number, _refTime: number) => {
-    const width = 200;
-    const height = width * 2;
     const imageBackgroundUrl = random(options['BookImageBackground.src'], seed);
+    return rawImageUrlToDownloadUrl(imageBackgroundUrl);
+  },
+};
 
-    return `${imageBackgroundUrl}?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=${width}&h=${height}&q=80&fm=jpg`;
+const createBookImageDataValue = {
+  createValue: async (seed: number, _refTime: number) => {
+    const imageBackgroundUrl = random(options['BookImageBackground.src'], seed);
+    const response = await fetch(rawImageUrlToDownloadUrl(imageBackgroundUrl));
+    return await response.arrayBuffer();
   },
 };
 
@@ -252,7 +263,7 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.FoodProductImage]: createFoodProductImageValue,
   [DataType.FoodProductImageBytes]: createFoodProductImageValue,
   [DataType.BookImageUrl]: createBookImageUrlValue,
-  [DataType.BookImageUrlBytes]: createBookImageUrlValue,
+  [DataType.BookImageData]: createBookImageDataValue,
   [DataType.Boolean_50_50]: {
     createValue: (seed, _refTime) => {
       setSeed(seed);

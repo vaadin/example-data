@@ -23,7 +23,7 @@ export enum DataType {
   BookTitlePrefix = 'BOOK_TITLE_PREFIX',
   BookTitleSuffix = 'BOOK_TITLE_SUFFIX',
   BookImageUrl = 'BOOK_IMAGE_URL',
-  BookImageUrlBytes = 'BOOK_IMAGE_URL_BYTES',
+  BookImageData = 'BOOK_IMAGE_DATA',
   BookImageBackground = 'BOOK_IMAGE_BACKGROUND',
   BookImageFileNames = 'BOOK_IMAGE_FILE_NAMES',
   BookGenre = 'BOOK_GENRE',

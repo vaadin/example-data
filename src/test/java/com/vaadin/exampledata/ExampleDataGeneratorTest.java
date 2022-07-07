@@ -521,7 +521,7 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setFoodProductName, DataType.FOOD_PRODUCT_NAME);
         generator.setData(AllDataTypes::setBookTitle, DataType.BOOK_TITLE);
         generator.setData(AllDataTypes::setBookCoverImage, DataType.BOOK_IMAGE_URL);
-        generator.setData(AllDataTypes::setBookCoverImageBytes, DataType.BOOK_IMAGE_URL_BYTES);
+        generator.setData(AllDataTypes::setBookCoverImageBytes, DataType.BOOK_IMAGE_DATA);
         generator.setData(AllDataTypes::setBoolean5050, DataType.BOOLEAN_50_50);
         generator.setData(AllDataTypes::setBoolean9010, DataType.BOOLEAN_90_10);
         generator.setData(AllDataTypes::setBoolean1090, DataType.BOOLEAN_10_90);
