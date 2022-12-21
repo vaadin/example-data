@@ -61,4 +61,5 @@ export enum DataType {
   DateTimeNext7days = 'DATETIME_NEXT_7_DAYS',
   TimeRandom = 'TIME_RANDOM',
   TimeHours = 'TIME_HOURS',
+  WorkRole = 'WORK_ROLE',
 }

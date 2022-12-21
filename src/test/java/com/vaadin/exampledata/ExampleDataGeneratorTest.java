@@ -42,6 +42,7 @@ public class ExampleDataGeneratorTest {
         private LocalDateTime dateTimeNext10Years, dateTimeNextYear, dateTimeNext30Days, dateTimeNext7Days;
         private LocalTime randomTime, randomHours;
         private UUID uuid;
+        private String workRole;
 
         public Integer getId() {
             return id;
@@ -463,6 +464,12 @@ public class ExampleDataGeneratorTest {
             this.uuid = uuid;
         }
 
+        public void setWorkRole(String workRole) {
+            this.workRole = workRole;
+        }
+        public String getWorkRole() {
+            return workRole;
+        }
         @Override
         public String toString() {
             return "AllDataTypes [accountNumber=" + accountNumber + ", amountOfMoney=" + amountOfMoney
@@ -547,6 +554,7 @@ public class ExampleDataGeneratorTest {
         generator.setData(AllDataTypes::setRandomTime, DataType.TIME_RANDOM);
         generator.setData(AllDataTypes::setRandomHours, DataType.TIME_HOURS);
         generator.setData(AllDataTypes::setUuid, DataType.UUID);
+        generator.setData(AllDataTypes::setWorkRole, DataType.WORK_ROLE);
 
         AllDataTypes allDataTypes = generator.createBean(2015781843);
         LoggerFactory.getLogger(getClass()).info("Created entity {}", allDataTypes);
@@ -583,6 +591,7 @@ public class ExampleDataGeneratorTest {
                 new String(allDataTypes.getFoodProductImageUrlBytes(), StandardCharsets.UTF_8));
         Assert.assertEquals("15054313", allDataTypes.getFoodProductEan());
         Assert.assertEquals("Becoming one with measuring things", allDataTypes.getBookTitle());
+        Assert.assertEquals("Manager", allDataTypes.getWorkRole());
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.not(CoreMatchers.containsString("#")));
         MatcherAssert.assertThat(allDataTypes.getBookCoverImage(), CoreMatchers.startsWith("data:image/jpg;base64,"));
 
