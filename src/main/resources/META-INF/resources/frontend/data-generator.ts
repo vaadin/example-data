@@ -1648,6 +1648,8 @@ options['ProfilePictureURL'] = [
 
 options['TransactionStatus'] = ['Pending', 'Submitted', 'Confirmed', 'Failed'];
 
+options['WorkRole'] = ['Worker', 'Supervisor', 'Manager', 'External'];
+
 export interface ValueCreator {
   createValue(seed: number, refTime: number): any;
 }
@@ -2025,4 +2027,5 @@ export const DataGenerators: { [key in string]: ValueCreator } = {
   [DataType.Occupation]: { createValue: (seed, _refTime) => random(options.Occupation, seed) },
   [DataType.ProfilePictureURL]: { createValue: (seed, _refTime) => random(options.ProfilePictureURL, seed) },
   [DataType.TransactionStatus]: { createValue: (seed, _refTime) => random(options.TransactionStatus, seed) },
+  [DataType.WorkRole]: { createValue: (seed, _refTime) => random(options.WorkRole, seed) },
 };
