@@ -29,6 +29,7 @@
         <developer>
             <id>vaadin</id>
             <name>Vaadin Team</name>
+            <email>info@vaadin.com</email>
             <organization>Vaadin Ltd</organization>
             <organizationUrl>https://vaadin.com</organizationUrl>
         </developer>
