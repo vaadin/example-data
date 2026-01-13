@@ -14,6 +14,7 @@
 
     <properties>
         <vaadin.version>25.1-SNAPSHOT</vaadin.version>
+        <flow.version>25.1-SNAPSHOT</flow.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -59,7 +60,7 @@
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>flow-build-tools</artifactId>
-            <version>25.1-SNAPSHOT</version>
+            <version>${flow.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
