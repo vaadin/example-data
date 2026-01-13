@@ -71,8 +71,15 @@ public class NodeUtil {
         SerializableSupplier<String> alternativeDirGetter = () -> FrontendUtils.getVaadinHomeDirectory()
                 .getAbsolutePath();
 
-        FrontendToolsSettings settings = new FrontendToolsSettings("", alternativeDirGetter);
-        return new FrontendTools(settings);
+        try {
+            FrontendToolsSettings settings = new FrontendToolsSettings("", alternativeDirGetter);
+            return new FrontendTools(settings);
+        } catch (Exception e) {
+            // flow-build-tools probably not available
+            throw new IllegalStateException(
+                    "Could not create FrontendTools instance, flow-build-tools not available? Skipping example data creation",
+                    e);
+        }
     }
 
     private static Logger getLogger() {
