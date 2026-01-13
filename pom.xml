@@ -12,6 +12,28 @@
         <url>http://vaadin.com</url>
     </organization>
 
+    <description>
+        Example data utilities used by Vaadin.
+    </description>
+
+    <url>https://github.com/vaadin/exampledata</url>
+
+    <scm>
+        <connection>scm:git:https://github.com/vaadin/exampledata.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/vaadin/exampledata.git</developerConnection>
+        <url>https://github.com/vaadin/exampledata</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>vaadin</id>
+            <name>Vaadin Team</name>
+            <organization>Vaadin Ltd</organization>
+            <organizationUrl>https://vaadin.com</organizationUrl>
+        </developer>
+    </developers>
+
     <properties>
         <vaadin.version>25.1-SNAPSHOT</vaadin.version>
         <flow.version>25.1-SNAPSHOT</flow.version>
