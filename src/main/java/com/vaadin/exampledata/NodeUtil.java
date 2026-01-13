@@ -13,8 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vaadin.flow.function.SerializableSupplier;
+import com.vaadin.flow.internal.FrontendUtils;
 import com.vaadin.flow.server.frontend.FrontendTools;
-import com.vaadin.flow.server.frontend.FrontendUtils;
+import com.vaadin.flow.server.frontend.FrontendToolsSettings;
 
 public class NodeUtil {
 
@@ -67,29 +68,11 @@ public class NodeUtil {
     }
 
     private FrontendTools createFrontendTools() {
-        String baseDir = "";
-        SerializableSupplier<String> alternativeDirGetter = () -> FrontendUtils.getVaadinHomeDirectory().getAbsolutePath();
+        SerializableSupplier<String> alternativeDirGetter = () -> FrontendUtils.getVaadinHomeDirectory()
+                .getAbsolutePath();
 
-        try {
-            // Vaadin 14 + 23
-            return new FrontendTools(baseDir, alternativeDirGetter);
-        } catch (NoSuchMethodError e) {
-            return createFrontendToolsVaadin24(baseDir, alternativeDirGetter);
-        }
-    }
-
-    private FrontendTools createFrontendToolsVaadin24(String baseDir, Supplier<String> alternativeDirGetter) {
-        try {
-
-            Class<?> settingsClass = Class.forName("com.vaadin.flow.server.frontend.FrontendToolsSettings");
-            Constructor<?> settingsConstructor = settingsClass.getConstructor(String.class, SerializableSupplier.class);
-            Object settings = settingsConstructor.newInstance(baseDir, alternativeDirGetter);
-            Constructor<FrontendTools> toolsConstructor = FrontendTools.class.getConstructor(settingsClass);
-            return toolsConstructor.newInstance(settings);
-        } catch (Exception e) {
-            getLogger().error("Unable to create frontend tools", e);
-            return null;
-        }
+        FrontendToolsSettings settings = new FrontendToolsSettings("", alternativeDirGetter);
+        return new FrontendTools(settings);
     }
 
     private static Logger getLogger() {
