@@ -36,8 +36,8 @@
     </developers>
 
     <properties>
-        <vaadin.version>25.1-SNAPSHOT</vaadin.version>
-        <flow.version>25.1-SNAPSHOT</flow.version>
+        <vaadin.version>25.1.0</vaadin.version>
+        <flow.version>25.1.0</flow.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
